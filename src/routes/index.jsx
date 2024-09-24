@@ -1,12 +1,9 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../Components/Login';
 import { HomePage } from '../Components/Home';
 import { PerfilPage } from '../Components/Perfil';
 import { ProjetosPage } from '../Components/Projetos';
-
-
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export function IndexRoutes() {
     return (
@@ -14,10 +11,8 @@ export function IndexRoutes() {
             <Routes>
                 <Route path='/' element={<LoginPage />} />
                 <Route path='/home' element={<HomePage />} />
-                <Route path='/Perfil' element={<PerfilPage />} />
-                <Route path='/Projetos' element={<ProjetosPage />} />
-
-
+                <Route path='/perfil' element={<PerfilPage />} />
+                <Route path='/projetos' element={<ProjetosPage />} />
             </Routes>
         </BrowserRouter>
     )
