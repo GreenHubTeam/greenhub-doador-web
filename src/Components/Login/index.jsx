@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ImageLogoLogin from '/saveLogo.png';
 import { HeaderComponent } from "../Header";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid2, TextField, Typography } from "@mui/material";
 
@@ -12,12 +13,15 @@ const LoginSchema = z.object({
 });
 
 export function LoginPage() {
+    const navigate = useNavigate();
+
     const { register, handleSubmit } = useForm({
         resolver: zodResolver(LoginSchema)
     });
 
     function handleLogin(data) {
         console.log(data);
+        navigate('/home');
     }
 
     return (
@@ -104,6 +108,7 @@ export function LoginPage() {
                                 >
                                     <TextField
                                         label="Senha"
+                                        type= 'password'
                                         fullWidth
                                         {...register('password')}
                                     />

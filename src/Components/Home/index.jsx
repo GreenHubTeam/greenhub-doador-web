@@ -18,20 +18,20 @@ export function HomePage() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    padding: '0 1rem',
+                    padding: '0 ',
                     borderBottom: '1px solid #000000',
-                    marginTop: '-80px',
+                    marginTop: '-100px',
                 }}
             >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '500px' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '500px', marginTop: '-10px' }}>
                     <IconButton>
                         <HomeIcon sx={{ color: '#000000' }} />
                     </IconButton>
                     <Typography sx={{ color: '#000000', fontWeight: 'bold' }}>Home</Typography>
                 </Box>
 
-                <IconButton>
-                    <AccountCircleIcon sx={{ fontSize: 40, color: '#000000' }} />
+                <IconButton onClick={() => navigate('/perfil')}>
+                    <AccountCircleIcon sx={{ fontSize: 40, color: '#000000', marginTop: '-10px' }} />
                 </IconButton>
             </Box>
 
@@ -124,8 +124,8 @@ export function HomePage() {
                 flexDirection: 'column',
                 padding: '10rem'
             }}>
-                <Grid2 container spacing={10}>
-                    <Grid2 size={6}>
+                <Grid2 container spacing={3}>
+                    <Grid2 size={4}>
                         <Box sx={{
                             padding: '2rem',
                             display: 'flex',
@@ -133,7 +133,6 @@ export function HomePage() {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            height: '550px',
                             borderWidth: '2px',
                             borderRadius: '8px',
                             backgroundColor: '#E7E7E7',
@@ -181,7 +180,7 @@ export function HomePage() {
                                             borderRadius: '20px',
                                             width: '200px'
                                         }}
-                                        onClick={() => navigate('/editar')}
+                                        onClick={() => navigate('/projetos')} 
                                     >
                                         Saiba mais
                                     </Button>
@@ -190,7 +189,7 @@ export function HomePage() {
                         </Box>
                     </Grid2>
 
-                    <Grid2 size={6}>
+                    <Grid2 size={4}>
                         <Box sx={{
                             padding: '2rem',
                             display: 'flex',
@@ -198,7 +197,6 @@ export function HomePage() {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            height: '550px',
                             borderWidth: '2px',
                             borderRadius: '8px',
                             backgroundColor: '#E7E7E7',
@@ -206,7 +204,7 @@ export function HomePage() {
                             <Box>
                                 <Box
                                     component='img'
-                                    src='/cidadaniaviva.jpg'
+                                    src='/cidadaniaviva.png'
                                     alt='Logo da cidadania'
                                     sx={{
                                         height: '250px',
@@ -247,7 +245,7 @@ export function HomePage() {
                                             borderRadius: '20px',
                                             width: '200px'
                                         }}
-                                        onClick={() => navigate('/editar')}
+                                        onClick={() => navigate('/projetos')}
                                     >
                                         Saiba mais
                                     </Button>
@@ -256,7 +254,7 @@ export function HomePage() {
                         </Box>
                     </Grid2>
 
-                    <Grid2 size={6}>
+                    <Grid2 size={4}>
                         <Box sx={{
                             padding: '2rem',
                             display: 'flex',
@@ -264,7 +262,6 @@ export function HomePage() {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            height: '550px',
                             borderWidth: '2px',
                             borderRadius: '8px',
                             backgroundColor: '#E7E7E7',
@@ -272,73 +269,7 @@ export function HomePage() {
                             <Box>
                                 <Box
                                     component='img'
-                                    src='/amoranimal.png'
-                                    alt='Logo da animal'
-                                    sx={{
-                                        height: '250px',
-                                        width: '100%',
-                                        objectFit: 'cover'
-                                    }}
-                                />
-
-                                <Box sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                }}>
-                                    <Typography sx={{
-                                        padding: '0 15px',
-                                        fontSize: '28px',
-                                        fontWeight: 'bold',
-                                    }}>Amor Animal</Typography>
-
-
-                                </Box>
-
-                                <Typography sx={{
-                                    padding: '20px 15px',
-                                    fontSize: '16px',
-                                    fontWeight: 'bold'
-                                }}>
-                                    Amor Animal é uma ONG voltada para o resgate, tratamento e adoção de animais abandonados.
-                                    Além de oferecer abrigos temporários, promove campanhas de conscientização contra maus-tratos e
-                                    busca incentivar a adoção responsável.
-                                </Typography>
-
-                                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    <Button
-                                        variant='contained'
-                                        sx={{
-                                            backgroundColor: '#3A914D',
-                                            height: '3rem',
-                                            borderRadius: '20px',
-                                            width: '200px'
-                                        }}
-                                        onClick={() => navigate('/editar')}
-                                    >
-                                        Saiba mais
-                                    </Button>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Grid2>
-
-                    <Grid2 size={6}>
-                        <Box sx={{
-                            padding: '2rem',
-                            display: 'flex',
-                            gap: '1.5rem',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flexDirection: 'column',
-                            height: '550px',
-                            borderWidth: '2px',
-                            borderRadius: '8px',
-                            backgroundColor: '#E7E7E7',
-                        }}>
-                            <Box>
-                                <Box
-                                    component='img'
-                                    src='/Saúde para Todos.jpg'
+                                    src='/Saúde para Todos.png'
                                     alt='Logo da Saúde para Todos'
                                     sx={{
                                         height: '250px',
@@ -379,7 +310,72 @@ export function HomePage() {
                                             borderRadius: '20px',
                                             width: '200px'
                                         }}
-                                        onClick={() => navigate('/editar')}
+                                        onClick={() => navigate('/projetos')}
+                                    >
+                                        Saiba mais
+                                    </Button>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Grid2>
+
+                    <Grid2 size={4}>
+                        <Box sx={{
+                            padding: '2rem',
+                            display: 'flex',
+                            gap: '1.5rem',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                            borderWidth: '2px',
+                            borderRadius: '8px',
+                            backgroundColor: '#E7E7E7',
+                        }}>
+                            <Box>
+                                <Box
+                                    component='img'
+                                    src='/amoranimal.png'
+                                    alt='Logo da cidadania'
+                                    sx={{
+                                        height: '250px',
+                                        width: '100%',
+                                        objectFit: 'cover'
+                                    }}
+                                />
+
+                                <Box sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                }}>
+                                    <Typography sx={{
+                                        padding: '0 15px',
+                                        fontSize: '28px',
+                                        fontWeight: 'bold',
+                                    }}>Amor Animal</Typography>
+
+
+                                </Box>
+
+                                <Typography sx={{
+                                    padding: '20px 15px',
+                                    fontSize: '16px',
+                                    fontWeight: 'bold'
+                                }}>
+                                    Amor Animal é uma ONG voltada para o resgate, tratamento e adoção de animais abandonados. 
+                                    Além de oferecer abrigos temporários, promove campanhas de conscientização contra maus-tratos 
+                                    e busca incentivar a adoção responsável.
+                                </Typography>
+
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <Button
+                                        variant='contained'
+                                        sx={{
+                                            backgroundColor: '#3A914D',
+                                            height: '3rem',
+                                            borderRadius: '20px',
+                                            width: '200px'
+                                        }}
+                                        onClick={() => navigate('/projetos')}
                                     >
                                         Saiba mais
                                     </Button>
@@ -388,23 +384,22 @@ export function HomePage() {
                         </Box>
                     </Grid2>
                 </Grid2>
+
             </Box>
 
             <Box
                 sx={{
                     backgroundColor: '#46A95F',
-                    padding: '45px',
+                    padding: '25px',
                     position: 'relative',
-                    bottom: 0,
                     width: '100%',
+                    marginTop: '80px', // Espaço entre o conteúdo e o rodapé
                 }}
             >
                 <Typography sx={{ fontSize: '15px', color: 'white' }}>
                     Termos de Uso | LGPD
                 </Typography>
-
             </Box>
-
         </Box>
     );
 }

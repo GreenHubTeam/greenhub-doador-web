@@ -2,8 +2,12 @@ import { Box, IconButton, Typography, Button, Avatar } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { HeaderComponent } from "../Header";
+import { useNavigate } from 'react-router-dom';
+
 
 export function PerfilPage() {
+    const navigate = useNavigate();
+    
     return (
         <Box>
             {/* Header */}
@@ -15,20 +19,20 @@ export function PerfilPage() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    padding: '0 1rem',
+                    padding: '0 ',
                     borderBottom: '1px solid #000000',
                     marginTop: '-100px',
                 }}
             >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '500px' }}>
-                    <IconButton>
+                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '500px', marginTop: '-10px'}}>
+                    <IconButton onClick={() => navigate('/home')}>
                         <HomeIcon sx={{ color: '#000000' }} />
                     </IconButton>
                     <Typography sx={{ color: '#000000', fontWeight: 'bold' }}>Home</Typography>
                 </Box>
 
                 <IconButton>
-                    <AccountCircleIcon sx={{ fontSize: 40, color: '#000000' }} />
+                    <AccountCircleIcon sx={{ fontSize: 40, color: '#000000', marginTop: '-10px' }} />
                 </IconButton>
             </Box>
 
@@ -105,11 +109,11 @@ export function PerfilPage() {
                     justifyContent: 'space-between',
                     margin: '0 100px', // Espaço nas laterais
                     borderRadius: '10px', // Bordas arredondadas
-                    marginTop:'-70px',
+                    marginTop: '-70px',
                 }}
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar 
+                    <Avatar
                         alt="Logo EcoFuturo"
                         src="/ecofuturo.png" // Substitua pela URL da sua imagem
                         sx={{ width: 80, height: 80, marginRight: '10px' }} // Tamanho do avatar
@@ -119,9 +123,9 @@ export function PerfilPage() {
                     </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', gap: '10px' }}>
-                    <Button variant="contained" sx={{ backgroundColor: '#2F5A3A', borderRadius:'20px' }}>Ver Detalhes</Button>
-                    <Button variant="contained" sx={{ backgroundColor: '#3A914D', borderRadius:'20px' }}>Doe Novamente</Button>
+                <Box sx={{ display: 'flex', gap: '10px', height: '50px' }}>
+                    <Button variant="contained" sx={{ backgroundColor: '#2F5A3A', borderRadius: '20px' }}>Ver Detalhes</Button>
+                    <Button variant="contained" sx={{ backgroundColor: '#3A914D', borderRadius: '20px' }}>Doe Novamente</Button>
                 </Box>
             </Box>
 
@@ -135,23 +139,23 @@ export function PerfilPage() {
                     justifyContent: 'space-between',
                     margin: '0 100px', // Espaço nas laterais
                     borderRadius: '10px', // Bordas arredondadas
-                    marginTop:'20px',
+                    marginTop: '20px',
                 }}
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar 
+                    <Avatar
                         alt="Logo EcoFuturo"
                         src="/Saúde para Todos.jpg" // Substitua pela URL da sua imagem
                         sx={{ width: 80, height: 80, marginRight: '10px' }} // Tamanho do avatar
                     />
                     <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
-                    Saúde para Todos
+                        Saúde para Todos
                     </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', gap: '10px' }}>
-                    <Button variant="contained" sx={{ backgroundColor: '#2F5A3A', borderRadius:'20px' }}>Ver Detalhes</Button>
-                    <Button variant="contained" sx={{ backgroundColor: '#3A914D', borderRadius:'20px' }}>Doe Novamente</Button>
+                <Box sx={{ display: 'flex', gap: '10px', height: '50px'}}>
+                    <Button variant="contained" sx={{ backgroundColor: '#2F5A3A', borderRadius: '20px' }}>Ver Detalhes</Button>
+                    <Button variant="contained" sx={{ backgroundColor: '#3A914D', borderRadius: '20px' }}>Doe Novamente</Button>
                 </Box>
             </Box>
 
@@ -159,11 +163,10 @@ export function PerfilPage() {
             <Box
                 sx={{
                     backgroundColor: '#46A95F',
-                    padding: '45px',
+                    padding: '25px',
                     position: 'relative',
-                    bottom: 0,
                     width: '100%',
-                    marginTop: '200px', // Espaço entre o conteúdo e o rodapé
+                    marginTop: '80px', // Espaço entre o conteúdo e o rodapé
                 }}
             >
                 <Typography sx={{ fontSize: '15px', color: 'white' }}>
