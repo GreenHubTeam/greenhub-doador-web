@@ -22,9 +22,9 @@ export function HeaderComponent() {
                 }}
             />
             <Box sx={{ display: 'flex' }}>
-                <Typography sx={{ color: '#22703E', fontSize: '1.5rem', fontWeight: '700' }}>Gre</Typography>
-                <Typography sx={{ color: '#3A914D', fontSize: '1.5rem', fontWeight: '700' }}>en</Typography>
-                <Typography sx={{ color: '#3A914D', fontSize: '1.5rem', fontWeight: '700' }}>Hub</Typography>
+                <Typography sx={{ color: '#22703E', fontSize: '1.5rem', fontWeight: '750' }}>Gre</Typography>
+                <Typography sx={{ color: '#3A914D', fontSize: '1.5rem', fontWeight: '750' }}>en</Typography>
+                <Typography sx={{ color: '#3A914D', fontSize: '1.5rem', fontWeight: '750' }}>Hub</Typography>
             </Box>
         </Box>
     );
