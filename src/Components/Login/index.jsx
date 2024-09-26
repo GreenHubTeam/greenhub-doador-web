@@ -109,7 +109,7 @@ export function LoginPage() {
                                     />
 
                                     <Typography>
-                                        Você não possui uma conta? <Box component={Link} to='/'>Registre-se</Box>
+                                        Você não possui uma conta? <Box component={Link} to='/registro'>Registre-se</Box>
                                     </Typography>
                                 </Box>
                             </Grid2>
