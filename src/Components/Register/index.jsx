@@ -131,7 +131,7 @@ export function LoginPage() {
                                     />
 
                                     <Typography>
-                                        Já tem uma conta? <Box component={Link} to='/login'>Clique Aqui</Box>
+                                        Já tem uma conta? <Box component={Link} to='/'>Clique Aqui</Box>
                                     </Typography>
                                 </Box>
                             </Grid2>
