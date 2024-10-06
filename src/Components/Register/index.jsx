@@ -1,32 +1,56 @@
 import { z } from "zod";
+import { useState } from "react";
+import { useContext } from "react";
+import { toast } from "react-toastify";  
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import ImageLogoLogin from '/saveLogo.png';  // Imagem de logo alterada
-import { HeaderComponent } from "../Header";  // Supondo que já tenha o HeaderComponent
+import ImageLogoLogin from '/saveLogo.png';  
+import { HeaderComponent } from "../Header";
+import KeyIcon from '@mui/icons-material/Key';
+import PersonIcon from '@mui/icons-material/Person';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Grid2, TextField, Typography } from "@mui/material";
+import { AuthContext } from "../../context/authContext";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import { Box, Divider, InputAdornment, TextField, Button, Typography, IconButton, CircularProgress, Grid2} from "@mui/material";
 
-// Validação com Zod para todos os campos
-const LoginSchema = z.object({
-    username: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
-    cpf: z.string().min(11, "CPF deve ter no mínimo 11 caracteres"),  // Validação de CPF
-    email: z.string().min(6, "E-mail deve ter no mínimo 6 caracteres"),
+
+const RegisterSchema = z.object({
+    username: z.string().min(1, "Nome deve ter no mínimo 2 caracteres"),
+    cpf: z.string().min(1, (value => /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/.test(value), {message: 'CPF inválido',}), 'CPF do responsável é obrigatório'),
+    email: z.string() .toLowerCase() .email('E-mail inválido'),
     password: z.string().min(3, "Senha deve ter no mínimo 3 caracteres")
 });
 
-export function LoginPage() {
-    const { register, handleSubmit } = useForm({
-        resolver: zodResolver(LoginSchema)
+export function RegisterPage() {
+    const [isShowPassword, setIsShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors }
+      } = useForm({
+        resolver: zodResolver(RegisterSchema),
+        mode: 'onChange'
     });
+    
+    const { registerUser } = useContext(AuthContext);
 
-    function handleLogin(data) {
-        console.log("Dados enviados:", data);
-        alert("Dados sendo Enviados: " + data.username + " " + data.cpf + " " + data.email + " " + data.password);
-    }
+    async function handleRegister(data) {
+        setLoading(true);
+        try {
+            await loginUser(data.email, data.password);
+            toast.success("Login realizado com sucesso!");
+        } catch (error) {
+            toast.error("Erro ao fazer login. Verifique suas credenciais.");
+        } finally {
+            setLoading(false);
+        }
+    }   
 
     return (
         <Grid2 container spacing={2}>
-            {/* Coluna esquerda com logo e textos */}
             <Grid2 size={6}>
                 <Box
                     sx={{
@@ -69,7 +93,6 @@ export function LoginPage() {
                 </Box>
             </Grid2>
 
-            {/* Coluna direita com formulário */}
             <Grid2 size={6}>
                 <Box
                     sx={{
@@ -81,7 +104,7 @@ export function LoginPage() {
                 >
                     <Box
                         component='form'
-                        onSubmit={handleSubmit(handleLogin)}
+                        onSubmit={handleSubmit(handleRegister)}
                     >
                         <Box
                             sx={{
@@ -95,27 +118,88 @@ export function LoginPage() {
 
                         <Grid2 container spacing={2}>
                             <Grid2 size={12}>
-                                <TextField
-                                    label="Nome"
-                                    fullWidth
-                                    {...register('username')}
-                                />
+                            <TextField
+            error={!!errors.username}
+            helperText={errors?.username?.message}
+            {...register("username")}
+            fullWidth
+            required
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment
+                    position="start"
+                    sx={{
+                      display: 'flex',
+                      gap: '0.5rem'
+                    }}
+                  >
+                    <PersonIcon />
+
+                    <Divider orientation="vertical" flexItem />
+                  </InputAdornment>
+                ),
+              },
+            }}
+            label="Nome"
+          />
                             </Grid2>
 
                             <Grid2 size={12}>
-                                <TextField
-                                    label="CPF"
-                                    fullWidth
-                                    {...register('cpf')}
-                                />
+                            <TextField
+                error={!!errors.cpf}
+                helperText={errors?.cpf?.message}
+                {...register('cpf')}
+                fullWidth
+                required
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment
+                        position="start"
+                        sx={{
+                          display: 'flex',
+                          gap: '0.5rem'
+                        }}
+                      >
+                        <AssignmentIndIcon />
+
+                        <Divider orientation="vertical" flexItem />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                label="CPF"
+              />
                             </Grid2>
 
                             <Grid2 size={12}>
-                                <TextField
-                                    label="E-mail"
-                                    fullWidth
-                                    {...register('email')}
-                                />
+                            <TextField
+                            helperText={errors?.email?.message}
+                            error={!!errors.email}
+                            {...register("email")}
+                            fullWidth
+                            required
+                            type='email'
+                            slotProps={{
+                                input: {
+                                    startAdornment: (
+                                        <InputAdornment
+                                            position="start"
+                                            sx={{
+                                                display: 'flex',
+                                                gap: '0.5rem'
+                                            }}
+                                        >
+                                            <PersonIcon />
+
+                                            <Divider orientation="vertical" flexItem />
+                                        </InputAdornment>
+                                    ),
+                                },
+                            }}
+                            label="E-mail"
+                        />
                             </Grid2>
 
                             <Grid2 size={12}>
@@ -124,32 +208,60 @@ export function LoginPage() {
                                     flexDirection='column'
                                     gap='.4rem'
                                 >
-                                    <TextField
-                                        label="Senha"
-                                        fullWidth
-                                        {...register('password')}
-                                    />
+                                   <TextField
+                            helperText={errors?.password?.message}
+                            error={!!errors.password}
+                            {...register('password')}
+                            fullWidth
+                            required
+                            type={isShowPassword ? 'text' : "password"}
+                            slotProps={{
+                                input: {
+                                    startAdornment: (
+                                        <InputAdornment
+                                            position="start"
+                                            sx={{
+                                                display: 'flex',
+                                                gap: '0.5rem'
+                                            }}
+                                        >
+                                            <KeyIcon />
+
+                                            <Divider orientation="vertical" flexItem />
+                                        </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                        <IconButton
+                                            onClick={() => setIsShowPassword(prev => !prev)}
+                                        >
+                                            {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    )
+                                },
+                            }}
+                            label="Senha"
+                        />
 
                                     <Typography>
-                                        Já tem uma conta? <Box component={Link} to='/login'>Clique Aqui</Box>
+                                        Já tem uma conta? <Box component={Link} to='/'>Clique Aqui</Box>
                                     </Typography>
                                 </Box>
                             </Grid2>
 
                             <Grid2 size={12}>
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{
-                                        backgroundColor: 'green',
-                                        boxShadow: 'none',
-                                        marginTop: '1rem',
-                                        height: '44px'
-                                    }}
-                                >
-                                    Criar Conta
-                                </Button>
+                            <Button
+                            disabled={loading}
+                            type="submit"
+                            variant='contained'
+                            sx={{
+                                backgroundColor: '#22703E',
+                                height: '3.5rem',
+                                width: '50%',
+                                margin: '0 auto',
+                            }}
+                        >
+                            {loading ? <CircularProgress size={24} /> : "Criar conta"}
+                        </Button>
                             </Grid2>
 
                             <Grid2 size={12}>
