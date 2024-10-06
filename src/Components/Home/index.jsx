@@ -404,7 +404,6 @@ export function HomePage() {
                 </Typography>
 
             </Box>
-
         </Box>
     );
 }

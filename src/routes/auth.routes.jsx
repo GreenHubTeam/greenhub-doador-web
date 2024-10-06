@@ -9,5 +9,4 @@ export function AuthRoutes() {
             <Route path='/registro' element={<RegisterPage />} />
         </Routes>
     )
-
 }

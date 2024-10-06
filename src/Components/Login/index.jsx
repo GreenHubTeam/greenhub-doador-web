@@ -10,7 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { HeaderComponent } from "../Header";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Divider, InputAdornment, TextField, Button, Typography, IconButton, CircularProgress, Grid2} from "@mui/material";
+import { Box, Divider, InputAdornment, TextField, Button, Typography, IconButton, CircularProgress, Grid2 } from "@mui/material";
 const LoginSchema = z.object({
     email: z.string().min(6, "Minimo de 6 caracteres"),
     password: z.string().min(3, "Minimo de 3 caracteres")
@@ -35,8 +35,6 @@ export function LoginPage() {
         try {
             await loginUser(data.email, data.password);
             toast.success("Login realizado com sucesso!");
-        } catch (error) {
-            toast.error("Erro ao fazer login. Verifique suas credenciais.");
         } finally {
             setLoading(false);
         }
@@ -111,32 +109,32 @@ export function LoginPage() {
                             spacing={2}
                         >
                             <Grid2 size={12}>
-                            <TextField
-                            helperText={errors?.email?.message}
-                            error={!!errors.email}
-                            {...register("email")}
-                            fullWidth
-                            required
-                            type='email'
-                            slotProps={{
-                                input: {
-                                    startAdornment: (
-                                        <InputAdornment
-                                            position="start"
-                                            sx={{
-                                                display: 'flex',
-                                                gap: '0.5rem'
-                                            }}
-                                        >
-                                            <PersonIcon />
+                                <TextField
+                                    helperText={errors?.email?.message}
+                                    error={!!errors.email}
+                                    {...register("email")}
+                                    fullWidth
+                                    required
+                                    type='email'
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment
+                                                    position="start"
+                                                    sx={{
+                                                        display: 'flex',
+                                                        gap: '0.5rem'
+                                                    }}
+                                                >
+                                                    <PersonIcon />
 
-                                            <Divider orientation="vertical" flexItem />
-                                        </InputAdornment>
-                                    ),
-                                },
-                            }}
-                            label="E-mail"
-                        />
+                                                    <Divider orientation="vertical" flexItem />
+                                                </InputAdornment>
+                                            ),
+                                        },
+                                    }}
+                                    label="E-mail"
+                                />
                             </Grid2>
 
                             <Grid2 size={12}>
@@ -146,38 +144,38 @@ export function LoginPage() {
                                     gap='.4rem'
                                 >
                                     <TextField
-                            helperText={errors?.password?.message}
-                            error={!!errors.password}
-                            {...register('password')}
-                            fullWidth
-                            required
-                            type={isShowPassword ? 'text' : "password"}
-                            slotProps={{
-                                input: {
-                                    startAdornment: (
-                                        <InputAdornment
-                                            position="start"
-                                            sx={{
-                                                display: 'flex',
-                                                gap: '0.5rem'
-                                            }}
-                                        >
-                                            <KeyIcon />
+                                        helperText={errors?.password?.message}
+                                        error={!!errors.password}
+                                        {...register('password')}
+                                        fullWidth
+                                        required
+                                        type={isShowPassword ? 'text' : "password"}
+                                        slotProps={{
+                                            input: {
+                                                startAdornment: (
+                                                    <InputAdornment
+                                                        position="start"
+                                                        sx={{
+                                                            display: 'flex',
+                                                            gap: '0.5rem'
+                                                        }}
+                                                    >
+                                                        <KeyIcon />
 
-                                            <Divider orientation="vertical" flexItem />
-                                        </InputAdornment>
-                                    ),
-                                    endAdornment: (
-                                        <IconButton
-                                            onClick={() => setIsShowPassword(prev => !prev)}
-                                        >
-                                            {isShowPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    )
-                                },
-                            }}
-                            label="Senha"
-                        />
+                                                        <Divider orientation="vertical" flexItem />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <IconButton
+                                                        onClick={() => setIsShowPassword(prev => !prev)}
+                                                    >
+                                                        {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                )
+                                            },
+                                        }}
+                                        label="Senha"
+                                    />
 
                                     <Typography>
                                         Você não possui uma conta? <Box component={Link} to='/registro'>Registre-se</Box>
@@ -186,19 +184,19 @@ export function LoginPage() {
                             </Grid2>
 
                             <Grid2 size={12}>
-                            <Button
-                            disabled={loading}
-                            type="submit"
-                            variant='contained'
-                            sx={{
-                                backgroundColor: '#22703E',
-                                height: '3.5rem',
-                                width: '50%',
-                                margin: '0 auto',
-                            }}
-                        >
-                            {loading ? <CircularProgress size={24} /> : "Entrar"}
-                        </Button>
+                                <Button
+                                    disabled={loading}
+                                    type="submit"
+                                    variant='contained'
+                                    sx={{
+                                        backgroundColor: '#22703E',
+                                        height: '3.5rem',
+                                        width: '50%',
+                                        margin: '0 auto',
+                                    }}
+                                >
+                                    {loading ? <CircularProgress color="success" size={24} /> : "Entrar"}
+                                </Button>
 
                             </Grid2>
                         </Grid2>

@@ -22,9 +22,7 @@ export function AuthProvider({ children }) {
 
             setToken(resposta.data.token);
 
-            localStorage.setItem('@greenhubONG:token', resposta.data.token);
-
-            toast.success("Login efetuado com sucesso, seja bem vindo!")
+            localStorage.setItem('@greenhubDONOR:token', resposta.data.token);
         } catch (error) {
             if (isAxiosError(error)) {
                 toast.error(error.response.data.message)
@@ -35,13 +33,28 @@ export function AuthProvider({ children }) {
     }
 
     async function registerUser(body) {
-        const resposta = await api.post('/ong', body);
+        try {
+            const resposta = await api.post('/user', body);
 
-        setToken(resposta.data.token);
+            setToken(resposta.data.token);
+
+            const decoded = jwtDecode(resposta.data.token);
+            setUser(decoded);
+
+            localStorage.setItem('@greenhubDONOR:token', resposta.data.token);
+
+            toast.success("Conta criada com sucesso");
+        } catch (error) {
+            if (isAxiosError(error)) {
+                toast.error(error.response.data.message)
+            } else {
+                toast.error("Error interno no servidor");
+            }
+        }
     }
 
     useEffect(() => {
-        const token = localStorage.getItem('@greenhubONG:token');
+        const token = localStorage.getItem('@greenhubDONOR:token');
 
         if (token) {
             setToken(token);
@@ -53,7 +66,7 @@ export function AuthProvider({ children }) {
     function logout() {
         setToken(null);
         setUser(null);
-        localStorage.removeItem('@greenhubONG:token');
+        localStorage.removeItem('@greenhubDONOR:token');
     }
 
     return (
@@ -70,6 +83,7 @@ export function AuthProvider({ children }) {
         </AuthContext.Provider>
     )
 }
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (context === undefined) {

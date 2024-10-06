@@ -6,10 +6,9 @@ import { Route, Routes } from 'react-router-dom';
 export function AppRoutes() {
     return (
         <Routes>
-            <Route path='/home' element={<HomePage />} />
+            <Route path='/' element={<HomePage />} />
             <Route path='/perfil' element={<PerfilPage />} />
             <Route path='/projetos' element={<ProjetosPage />} />
         </Routes>
     )
-
 }
