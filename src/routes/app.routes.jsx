@@ -1,6 +1,6 @@
-import { HomePage } from '../Components/Home';
-import { PerfilPage } from '../Components/Perfil';
-import { ProjetosPage } from '../Components/Projetos';
+import { HomePage } from '../pages/Home';
+import { PerfilPage } from '../pages/Perfil';
+import { ProjetosPage } from '../pages/Projetos';
 import { Route, Routes } from 'react-router-dom';
 
 export function AppRoutes() {

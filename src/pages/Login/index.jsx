@@ -2,12 +2,13 @@ import { z } from "zod";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
 import KeyIcon from '@mui/icons-material/Key';
 import ImageLogoLogin from '/saveLogo.png';
 import PersonIcon from '@mui/icons-material/Person';
-import { HeaderComponent } from "../Header";
+import { HeaderComponent } from "../../Components/Header";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Divider, InputAdornment, TextField, Button, Typography, IconButton, CircularProgress, Grid2 } from "@mui/material";
@@ -17,6 +18,7 @@ const LoginSchema = z.object({
 });
 
 export function LoginPage() {
+    const navigate = useNavigate();
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const {
@@ -35,6 +37,7 @@ export function LoginPage() {
         try {
             await loginUser(data.email, data.password);
             toast.success("Login realizado com sucesso!");
+             navigate('/');
         } finally {
             setLoading(false);
         }
