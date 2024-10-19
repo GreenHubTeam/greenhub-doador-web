@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 export const AuthContext = createContext({});
 
+// eslint-disable-next-line react/prop-types
 export function AuthProvider({ children }) {
     const [token, setToken] = useState("");
     const [user, setUser] = useState("");
