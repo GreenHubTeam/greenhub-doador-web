@@ -1,20 +1,14 @@
+import { AppRoutes } from "./app.routes";
+import { AuthRoutes } from "./auth.routes";
+import { BrowserRouter } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
-import { LoginPage } from '../Components/Login';
-import { HomePage } from '../Components/Home';
-import { PerfilPage } from '../Components/Perfil';
-import { ProjetosPage } from '../Components/Projetos';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+export function RoutesMain() {
+    const { token } = useAuth();
 
-export function IndexRoutes() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path='/' element={<LoginPage />} />
-                <Route path='/home' element={<HomePage />} />
-                <Route path='/perfil' element={<PerfilPage />} />
-                <Route path='/projetos' element={<ProjetosPage />} />
-            </Routes>
+            {token ? <AppRoutes /> : <AuthRoutes />}
         </BrowserRouter>
     )
-
 }
