@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 import { LogoComponent } from "../../components/Logo";
 import { SlideText } from "../../components/SlideText";
-import { FormLoginComponent } from "../../components/FormLogin";
+import { FormRegisterComponent } from "../../components/FormRegister";
 import { Box, Button, Card, CardContent, Container, Divider, Grid2, Typography, useMediaQuery } from "@mui/material";
 
-export function Login() {
+export function Register() {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
@@ -42,11 +42,11 @@ export function Login() {
                             }}>
                                 <Box>
                                     <Typography variant="h5" color="green">
-                                        Olá, seja Bem vindo
+                                        Registre-se
                                     </Typography>
 
                                     <Typography variant="h6">
-                                        Faça login na sua conta
+                                        Informe suas credenciais
                                     </Typography>
                                 </Box>
 
@@ -55,7 +55,7 @@ export function Login() {
 
                             <Divider sx={{ my: '2rem' }} />
 
-                            <FormLoginComponent />
+                            <FormRegisterComponent />
 
                             <Divider sx={{ my: '1rem' }} />
 
@@ -67,13 +67,13 @@ export function Login() {
                                     gap: '.3rem'
                                 }}
                             >
-                                Não tem conta?
+                                Já possui conta?
                                 <Box
                                     component={Link}
-                                    to='/signup'
+                                    to='/signin'
                                     sx={{ color: 'green' }}
                                 >
-                                    Registre-se
+                                    Entre aqui
                                 </Box>
                             </Box>
                         </CardContent>

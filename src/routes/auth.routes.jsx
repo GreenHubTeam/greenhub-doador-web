@@ -1,5 +1,6 @@
 import { Home } from '../pages/home';
 import { Login } from '../pages/login';
+import { Register } from '../pages/register';
 import { Route, Routes } from 'react-router-dom';
 import { LayoutUnlogged } from '../components/LayoutUnlogged';
 
@@ -11,6 +12,7 @@ export function AuthRoutes() {
             </Route>
 
             <Route path='/signin' element={<Login />} />
+            <Route path='/signup' element={<Register />} />
         </Routes>
     );
 };
