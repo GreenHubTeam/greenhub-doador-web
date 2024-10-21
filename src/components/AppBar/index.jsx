@@ -35,7 +35,7 @@ export function AppBarComponent() {
                         <Button
                             variant="contained"
                             sx={{ backgroundColor: 'green' }}
-                            onClick={() => router('/login')}
+                            onClick={() => router('/signin')}
                         >
                             Login
                         </Button>
