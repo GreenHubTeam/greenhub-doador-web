@@ -6,7 +6,7 @@ export function AppBarComponent() {
     const router = useNavigate();
 
     return (
-        <AppBar sx={{ backgroundColor: 'white', color: 'black', border: 'none', boxShadow: 'none' }}
+        <AppBar sx={{ backgroundColor: 'transparent', color: 'white', border: 'none', boxShadow: 'none' }}
             position="static">
             <Toolbar sx={{ padding: '.6rem' }}>
                 <LogoComponent />
@@ -26,8 +26,8 @@ export function AppBarComponent() {
 
                     <Stack direction='row' spacing={2}>
                         <Button
-                            variant="outlined"
-                            sx={{ borderColor: 'gray', color: 'black' }}
+                            variant="contained"
+                            sx={{ borderColor: 'gray', color: 'black', backgroundColor: 'white' }}
                             onClick={() => router('/signup')}
                         >
                             Registre-se

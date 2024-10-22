@@ -1,16 +1,14 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { HeroSection } from "../../components/HeroSection";
 
 export function Home() {
     return (
         <Box flexGrow={1}>
-            <Box
-                sx={{
-                    height: '75vh',
-                    backgroundColor: 'red'
-                }}
-            >
+            <HeroSection />
 
-            </Box>
+            <Typography>
+                teste
+            </Typography>
         </Box>
     )
 }
