@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from '../../context/authContext';
+import { useAuth } from '../../hooks/useAuth';
 import { isValidCPF } from '../../utils/isValidCPF';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Visibility, VisibilityOff, Key, Person, AssignmentInd } from '@mui/icons-material';

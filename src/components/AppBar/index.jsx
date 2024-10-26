@@ -2,11 +2,12 @@ import { LogoComponent } from '../Logo';
 import { useNavigate } from 'react-router-dom';
 import { AppBar, Button, Stack, Toolbar } from '@mui/material';
 
-export function AppBarComponent() {
+// eslint-disable-next-line react/prop-types
+export function AppBarComponent({ color = 'white' }) {
     const router = useNavigate();
 
     return (
-        <AppBar sx={{ backgroundColor: 'transparent', color: 'white', border: 'none', boxShadow: 'none' }}
+        <AppBar sx={{ backgroundColor: 'transparent', color, border: 'none', boxShadow: 'none' }}
             position="static">
             <Toolbar sx={{ padding: '.6rem' }}>
                 <LogoComponent />
@@ -20,7 +21,7 @@ export function AppBarComponent() {
                     <Button color="inherit" onClick={() => router('/')}>
                         Home
                     </Button>
-                    <Button color="inherit" onClick={() => router('/projects')}>
+                    <Button color="inherit" onClick={() => router('/project')}>
                         Projetos
                     </Button>
 

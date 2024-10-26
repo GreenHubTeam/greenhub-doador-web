@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Visibility, VisibilityOff, Key } from '@mui/icons-material';
 import { Box, Button, CircularProgress, Divider, IconButton, InputAdornment, TextField } from "@mui/material";
-import { useAuth } from '../../context/authContext';
+import { useAuth } from '../../hooks/useAuth';
 
 const schemaLogin = z.object({
     email: z.string().email("Email inválido"),

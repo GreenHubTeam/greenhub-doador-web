@@ -16,6 +16,7 @@
     "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.1",
     "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
     "framer-motion": "^11.11.9",
     "js-brasil": "^2.6.3",
     "jwt-decode": "^4.0.0",

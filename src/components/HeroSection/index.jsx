@@ -38,7 +38,7 @@ export function HeroSection() {
                     zIndex: 2
                 }}
             >
-                <AppBarComponent />
+                <AppBarComponent color='white' />
                 <Box
                     sx={{
                         flex: 1,

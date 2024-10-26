@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../libs/axios";
-import { jwtDecode } from "jwt-decode";
 import { isAxiosError } from "axios";
+import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext({});
 
@@ -84,11 +84,3 @@ export function AuthProvider({ children }) {
         </AuthContext.Provider>
     )
 }
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error("useAuth must be used within an AuthProvider");
-    }
-    return context;
-};

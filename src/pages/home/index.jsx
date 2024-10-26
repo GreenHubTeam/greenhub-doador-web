@@ -1,7 +1,8 @@
-import { Box, Grid2, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { FooterComponent } from "../../components/Footer";
 import { HeroSection } from "../../components/HeroSection";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { SlideProject } from "../../components/SlideProject";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Box, Grid2, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 
 export function Home() {
     return (
@@ -10,7 +11,8 @@ export function Home() {
 
             <Box
                 sx={{
-                    padding: '5rem 7rem'
+                    padding: '5rem 7rem',
+                    my: '4rem'
                 }}
             >
                 <Grid2 container spacing={5}>
@@ -87,6 +89,8 @@ export function Home() {
                     </Grid2>
                 </Grid2>
             </Box>
+
+            <FooterComponent />
         </Box >
     )
 }
