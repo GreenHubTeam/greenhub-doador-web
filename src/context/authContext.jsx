@@ -24,12 +24,16 @@ export function AuthProvider({ children }) {
             setToken(resposta.data.token);
 
             localStorage.setItem('@greenhubDONOR:token', resposta.data.token);
+
+            return true;
         } catch (error) {
             if (isAxiosError(error)) {
                 toast.error(error.response.data.message)
             } else {
                 toast.error("Error interno no servidor");
             }
+
+            return false
         }
     }
 
@@ -45,12 +49,16 @@ export function AuthProvider({ children }) {
             localStorage.setItem('@greenhubDONOR:token', resposta.data.token);
 
             toast.success("Conta criada com sucesso");
+
+            return true
         } catch (error) {
             if (isAxiosError(error)) {
                 toast.error(error.response.data.message)
             } else {
                 toast.error("Error interno no servidor");
             }
+
+            return false
         }
     }
 

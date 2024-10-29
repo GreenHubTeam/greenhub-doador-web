@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import { AppBarComponent } from "../AppBar";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
-import { motion } from "framer-motion"
 
 export function HeroSection() {
     const router = useNavigate();
@@ -74,7 +74,7 @@ export function HeroSection() {
                             <Button
                                 variant="contained"
                                 sx={{ backgroundColor: 'green', mt: '2rem', height: '3rem' }}
-                                onClick={() => router('/projects')}
+                                onClick={() => router('/project')}
                             >
                                 Descubra Projetos Sustentáveis
                             </Button>

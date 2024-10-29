@@ -1,12 +1,16 @@
+import { useAuth } from "../../hooks/useAuth";
 import { Box, Grid2, Typography } from "@mui/material";
 import { AppBarComponent } from "../../components/AppBar";
 import { FooterComponent } from "../../components/Footer";
 import { ListProjects } from "../../components/ListProjects";
 
 export function Projects() {
+
+    const { user } = useAuth();
+
     return (
         <Box flexGrow={1} >
-            <AppBarComponent color='black' />
+            {!user && <AppBarComponent color='black' />}
             <Box
                 sx={{
                     padding: '0 7rem',
@@ -21,9 +25,9 @@ export function Projects() {
                         sx={{
                             width: '100%',
                             borderRadius: '2rem',
-                            height: '300px',
+                            height: '200px',
                             backgroundImage: 'url("/fotoonça.png")',
-                            backgroundSize: 'center',
+                            backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             padding: '0 4rem',
                             display: 'flex',
@@ -33,7 +37,7 @@ export function Projects() {
                         }}
                     >
                         <Typography variant="h3" fontWeight={700}>
-                            Gostaria de fazer a diferença?
+                            {user ? `Bem vindo ${(user.name).split(" ")[0]}!` : "Gostaria de fazer a diferença?"}
                         </Typography>
 
                         <Typography variant="h5" sx={{ color: 'darkgray' }} >
@@ -43,11 +47,12 @@ export function Projects() {
                 </Box>
 
                 <Grid2 container>
-                    <ListProjects />
+                    <ListProjects viewProfile={!!user} />
                 </Grid2>
 
             </Box>
-            <FooterComponent />
+            {!user && <FooterComponent />}
+
         </Box>
     )
 }

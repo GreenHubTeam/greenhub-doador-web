@@ -1,14 +1,16 @@
 import { LogoComponent } from '../Logo';
+import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { AppBar, Button, Stack, Toolbar } from '@mui/material';
+import { Article, ExitToApp, Home, Person } from '@mui/icons-material';
+import { AppBar, Button, IconButton, Stack, Toolbar, Tooltip } from '@mui/material';
 
 // eslint-disable-next-line react/prop-types
 export function AppBarComponent({ color = 'white' }) {
-    const router = useNavigate();
+    const navigate = useNavigate();
+    const { token, logout } = useAuth();
 
     return (
-        <AppBar sx={{ backgroundColor: 'transparent', color, border: 'none', boxShadow: 'none' }}
-            position="static">
+        <AppBar sx={{ color, backgroundColor: 'transparent', border: 'none', boxShadow: 'none' }} position="static">
             <Toolbar sx={{ padding: '.6rem' }}>
                 <LogoComponent />
 
@@ -18,29 +20,50 @@ export function AppBarComponent({ color = 'white' }) {
                     spacing={2}
                     justifyContent='end'
                 >
-                    <Button color="inherit" onClick={() => router('/')}>
+                    <Button color="inherit" onClick={() => navigate('/')} startIcon={<Home />}>
                         Home
                     </Button>
-                    <Button color="inherit" onClick={() => router('/project')}>
+                    <Button color="inherit" onClick={() => navigate('/project')} startIcon={<Article />}>
                         Projetos
                     </Button>
 
-                    <Stack direction='row' spacing={2}>
-                        <Button
-                            variant="contained"
-                            sx={{ borderColor: 'gray', color: 'black', backgroundColor: 'white' }}
-                            onClick={() => router('/signup')}
-                        >
-                            Registre-se
-                        </Button>
-                        <Button
-                            variant="contained"
-                            sx={{ backgroundColor: 'green' }}
-                            onClick={() => router('/signin')}
-                        >
-                            Login
-                        </Button>
-                    </Stack>
+                    {!token && (
+                        <Stack direction='row' spacing={2}>
+                            <Button
+                                variant="contained"
+                                sx={{ borderColor: 'gray', color: 'black', backgroundColor: 'white' }}
+                                onClick={() => navigate('/signup')}
+                            >
+                                Registre-se
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ backgroundColor: 'green' }}
+                                onClick={() => navigate('/signin')}
+                            >
+                                Login
+                            </Button>
+                        </Stack>
+                    )}
+
+                    {token && (
+                        <Stack direction='row' spacing={2}>
+                            <Tooltip title="Sair">
+                                <IconButton onClick={() => {
+                                    logout();
+                                    navigate('/');
+                                }}>
+                                    <ExitToApp />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Ver perfil">
+                                <IconButton>
+                                    <Person />
+                                </IconButton>
+                            </Tooltip>
+                        </Stack>
+                    )}
+
                 </Stack>
             </Toolbar>
         </AppBar>

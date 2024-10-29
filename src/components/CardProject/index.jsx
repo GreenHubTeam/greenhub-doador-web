@@ -80,7 +80,7 @@ export function CardProject(data) {
                 </CardActionArea>
 
                 {data.viewProfile && (
-                    <CardActionArea onClick={() => navigate(`/ong/${data.id}`)}>
+                    <CardActionArea onClick={() => navigate(`/ong/${data.ongId}`)}>
                         <CardContent
                             sx={{
                                 display: 'flex',

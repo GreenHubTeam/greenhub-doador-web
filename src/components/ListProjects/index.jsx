@@ -6,9 +6,10 @@ import { Search } from "@mui/icons-material";
 import useSearch from "../../hooks/useSearch";
 import { Grid2, InputAdornment, Pagination, Skeleton, TextField } from "@mui/material";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 9;
 
-export function ListProjects() {
+// eslint-disable-next-line react/prop-types
+export function ListProjects({ ongId, viewProfile = false }) {
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -20,9 +21,15 @@ export function ListProjects() {
         const fetchProjects = async () => {
             setIsLoading(true);
             try {
-                const { data } = await api.get('/project/approved', {
+
+                const url = ongId ? `/project/ong/${ongId}` : "/project/approved"
+
+                const { data } = await api.get(url, {
                     params: {
-                        search: searchFilter
+                        search: searchFilter,
+                        page: page,
+                        pageSize: PAGE_SIZE,
+                        status: "APPROVED"
                     }
                 });
 
@@ -38,7 +45,7 @@ export function ListProjects() {
         fetchProjects();
 
         return () => new AbortController().abort();
-    }, [searchFilter]);
+    }, [searchFilter, page, ongId]);
 
     return (
         <Grid2 container spacing={3} size={12} my={4}>
@@ -102,6 +109,7 @@ export function ListProjects() {
                             ongName={project.Ong?.name}
                             ongId={project.Ong?.id}
                             ongImagePath={project.Ong?.imagePath}
+                            viewProfile={viewProfile}
                         />
                     </Grid2>
                 ))
@@ -119,7 +127,6 @@ export function ListProjects() {
                         sx={{ marginTop: '20px', mb: '2rem' }}
                     />
                 </Grid2>
-
             )}
         </Grid2>
     )

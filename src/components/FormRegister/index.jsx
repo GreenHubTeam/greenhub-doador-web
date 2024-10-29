@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { isValidCPF } from '../../utils/isValidCPF';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Visibility, VisibilityOff, Key, Person, AssignmentInd } from '@mui/icons-material';
@@ -19,6 +20,7 @@ export function FormRegisterComponent() {
     const [isShowPassword, setIsShowPassword] = useState(false);
 
     const { registerUser } = useAuth();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -30,7 +32,7 @@ export function FormRegisterComponent() {
 
     async function handleRegister(data) {
         setIsLoading(true);
-        await registerUser({
+        const logged = await registerUser({
             document: data.document,
             name: data.name,
             type: "DONOR",
@@ -38,6 +40,8 @@ export function FormRegisterComponent() {
             password: data.password
         });
         setIsLoading(false);
+
+        if (logged) navigate('/');
     }
 
     return (

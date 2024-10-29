@@ -1,10 +1,11 @@
 import { z } from 'zod';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Visibility, VisibilityOff, Key } from '@mui/icons-material';
 import { Box, Button, CircularProgress, Divider, IconButton, InputAdornment, TextField } from "@mui/material";
-import { useAuth } from '../../hooks/useAuth';
 
 const schemaLogin = z.object({
     email: z.string().email("Email inválido"),
@@ -17,6 +18,7 @@ export function FormLoginComponent() {
     const [isShowPassword, setIsShowPassword] = useState(false);
 
     const { loginUser } = useAuth();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -28,8 +30,10 @@ export function FormLoginComponent() {
 
     async function handleLogin(data) {
         setIsLoading(true);
-        await loginUser(data.email, data.password);
+        const logged = await loginUser(data.email, data.password);
         setIsLoading(false);
+
+        if (logged) navigate('/');
     }
 
     return (
