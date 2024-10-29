@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { formatCNPJ } from "../../utils/formatCNPJ";
 import { ListPost } from "../../components/ListPosts";
-import { AppBarComponent } from "../../components/AppBar";
 import { ListProjects } from "../../components/ListProjects";
 import { AccessTime, AssignmentInd, Email, Info, LocationCity, Phone } from "@mui/icons-material";
 import { Avatar, Box, Card, CardContent, Chip, Grid2, Stack, Tab, Tabs, Typography } from "@mui/material";
@@ -82,10 +81,6 @@ export default function OngProfileComponent() {
 
     return (
         <Grid2 container>
-            <Grid2 size={12}>
-                <AppBarComponent color="black" />
-            </Grid2>
-
             <Grid2 size={12} padding={4}>
                 <Box
                     sx={{
