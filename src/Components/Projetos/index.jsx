@@ -1,7 +1,8 @@
 import { Box, IconButton, Typography, Button, Avatar } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';   
 import { HeaderComponent } from "../Header";
+import { Link } from 'react-router-dom'; // Importar o Link do React Router
 
 export function ProjetosPage() {
     return (
@@ -84,7 +85,8 @@ export function ProjetosPage() {
 
                     {/* Botão "Apoie esse projeto" */}
                     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px', }}>
-                        <Button
+                        <Link to="/doacaofake">
+                         <Button
                             variant='contained'
                             sx={{
                                 backgroundColor: '#3A914D',
@@ -95,7 +97,8 @@ export function ProjetosPage() {
                             }}
                         >
                             Apoie esse projeto
-                        </Button>
+                         </Button>
+                        </Link>
                     </Box>
                 </Box>
 
