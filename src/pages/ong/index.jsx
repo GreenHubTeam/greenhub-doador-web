@@ -8,7 +8,7 @@ import { formatCNPJ } from "../../utils/formatCNPJ";
 import { ListPost } from "../../components/ListPosts";
 import { ListProjects } from "../../components/ListProjects";
 import { AccessTime, AssignmentInd, Email, Info, LocationCity, Phone } from "@mui/icons-material";
-import { Avatar, Box, Card, CardContent, Chip, Grid2, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, Chip, CircularProgress, Grid2, Stack, Tab, Tabs, Typography } from "@mui/material";
 
 function CustomTabPanel(props) {
     // eslint-disable-next-line react/prop-types
@@ -39,6 +39,7 @@ export default function OngProfileComponent() {
     const { id: ongId } = useParams();
     const [ongData, setOngData] = useState(null);
     const [profileImage, setProfileImage] = useState("/profile1.png");
+    const [isLoading, setIsLoading] = useState(false);
 
     const randomizeProfileImage = () => {
         const profileImages = [
@@ -57,18 +58,23 @@ export default function OngProfileComponent() {
 
     useEffect(() => {
         const fetchOngData = async () => {
+            setIsLoading(true);
             try {
                 const response = await api.get(`/ong/${ongId}`);
 
                 setOngData(response.data);
 
-                setProfileImage(`${env.base_url_api}/${response.data.imagePath}`)
+                setProfileImage(`${env.api_url}/${response.data.imagePath}`)
+
             } catch {
                 toast.error("Error ao buscar dados da ONG, tente Novamente Mais tarde")
+            } finally {
+                setIsLoading(false);
             }
         }
 
         fetchOngData();
+        window.scrollTo(0, 0);
 
         return () => new AbortController().abort();
     }, [ongId]);
@@ -146,104 +152,112 @@ export default function OngProfileComponent() {
                         </Box>
                     </Box>
 
-                    <Grid2 mt={4} container spacing={3}>
-                        <Grid2 size={4}>
-                            <Card
-                                variant="outlined"
-                            >
-                                <CardContent>
-                                    <Typography variant="h6" mb={2}>
-                                        Sobre
-                                    </Typography>
-                                    <Stack spacing={2}>
+                    {isLoading && (
+                        <Stack direction='row' justifyContent='center' alignItems='center' height={400}>
+                            <CircularProgress color="success" />
+                        </Stack>
+                    )}
 
-                                        <Typography
-                                            display='flex'
-                                            alignItems='center'
-                                            gap={1}
-                                            fontSize='1.1rem'
-                                        >
-                                            <AssignmentInd />
-                                            {formatCNPJ(ongData?.document || "")}
+                    {!isLoading && ongData && (
+                        <Grid2 mt={4} container spacing={3}>
+                            <Grid2 size={4}>
+                                <Card
+                                    variant="outlined"
+                                >
+                                    <CardContent>
+                                        <Typography variant="h6" mb={2}>
+                                            Sobre
                                         </Typography>
-                                        <Typography
-                                            display='flex'
-                                            gap={1}
-                                            fontSize='1.1rem'
-                                        >
-                                            <Info />
-                                            {ongData?.about}
-                                        </Typography>
+                                        <Stack spacing={2}>
 
-                                        <Typography
-                                            display='flex'
-                                            alignItems='center'
-                                            gap={1}
-                                            fontSize='1.1rem'
-                                        >
-                                            <Email />
-                                            {ongData?.User?.email}
-                                        </Typography>
-                                        <Typography
-                                            display='flex'
-                                            alignItems='center'
-                                            gap={1}
-                                            fontSize='1.1rem'
-                                        >
-                                            <LocationCity />
-                                            {ongData?.state} - {ongData?.city} - {ongData?.district} - {ongData?.street} - {ongData?.number}
-                                        </Typography>
-                                        <Typography
-                                            display='flex'
-                                            alignItems='center'
-                                            gap={1}
-                                            fontSize='1.1rem'
-                                        >
-                                            <Phone />
-                                            {ongData?.telephone}
-                                        </Typography>
-                                        <Typography
-                                            display='flex'
-                                            alignItems='center'
-                                            gap={1}
-                                            fontSize='1.1rem'
-                                        >
-                                            <AccessTime />
-                                            Criado em {dayjs(ongData?.createdAt).format('DD/MM/YYYY')}
-                                        </Typography>
-                                        <Typography
-                                            display='flex'
-                                            alignItems='center'
-                                            gap={1}
-                                            fontSize='1.1rem'
-                                        >
-                                            <AccessTime />
-                                            Atualizado em {dayjs(ongData?.updatedAt).format('DD/MM/YYYY')}
-                                        </Typography>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-                        </Grid2>
+                                            <Typography
+                                                display='flex'
+                                                alignItems='center'
+                                                gap={1}
+                                                fontSize='1.1rem'
+                                            >
+                                                <AssignmentInd />
+                                                {formatCNPJ(ongData?.document || "")}
+                                            </Typography>
+                                            <Typography
+                                                display='flex'
+                                                gap={1}
+                                                fontSize='1.1rem'
+                                            >
+                                                <Info />
+                                                {ongData?.about}
+                                            </Typography>
 
-                        <Grid2 size={8}>
-                            <Card variant="outlined">
-                                <Box sx={{ width: '100%' }}>
-                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                            <Tab label="Projetos" {...a11yProps(0)} />
-                                            <Tab label="Posts" {...a11yProps(1)} />
-                                        </Tabs>
+                                            <Typography
+                                                display='flex'
+                                                alignItems='center'
+                                                gap={1}
+                                                fontSize='1.1rem'
+                                            >
+                                                <Email />
+                                                {ongData?.User?.email}
+                                            </Typography>
+                                            <Typography
+                                                display='flex'
+                                                alignItems='center'
+                                                gap={1}
+                                                fontSize='1.1rem'
+                                            >
+                                                <LocationCity />
+                                                {ongData?.state} - {ongData?.city} - {ongData?.district} - {ongData?.street} - {ongData?.number}
+                                            </Typography>
+                                            <Typography
+                                                display='flex'
+                                                alignItems='center'
+                                                gap={1}
+                                                fontSize='1.1rem'
+                                            >
+                                                <Phone />
+                                                {ongData?.telephone}
+                                            </Typography>
+                                            <Typography
+                                                display='flex'
+                                                alignItems='center'
+                                                gap={1}
+                                                fontSize='1.1rem'
+                                            >
+                                                <AccessTime />
+                                                Criado em {dayjs(ongData?.createdAt).format('DD/MM/YYYY')}
+                                            </Typography>
+                                            <Typography
+                                                display='flex'
+                                                alignItems='center'
+                                                gap={1}
+                                                fontSize='1.1rem'
+                                            >
+                                                <AccessTime />
+                                                Atualizado em {dayjs(ongData?.updatedAt).format('DD/MM/YYYY')}
+                                            </Typography>
+                                        </Stack>
+                                    </CardContent>
+                                </Card>
+                            </Grid2>
+
+                            <Grid2 size={8}>
+                                <Card variant="outlined">
+                                    <Box sx={{ width: '100%' }}>
+                                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                                <Tab label="Projetos" {...a11yProps(0)} />
+                                                <Tab label="Posts" {...a11yProps(1)} />
+                                            </Tabs>
+                                        </Box>
+                                        <CustomTabPanel value={value} index={0}>
+                                            <ListProjects ongId={ongId} />
+                                        </CustomTabPanel>
+                                        <CustomTabPanel value={value} index={1}>
+                                            <ListPost ongId={ongId} profilePath={profileImage} />
+                                        </CustomTabPanel>
                                     </Box>
-                                    <CustomTabPanel value={value} index={0}>
-                                        <ListProjects ongId={ongId} />
-                                    </CustomTabPanel>
-                                    <CustomTabPanel value={value} index={1}>
-                                        <ListPost ongId={ongId} profilePath={profileImage} />
-                                    </CustomTabPanel>
-                                </Box>
-                            </Card>
+                                </Card>
+                            </Grid2>
                         </Grid2>
-                    </Grid2>
+                    )}
                 </Box >
             </Grid2>
         </Grid2>

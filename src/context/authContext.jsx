@@ -3,6 +3,7 @@ import { isAxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { createContext, useEffect, useState } from "react";
+import { env } from '../env/index';
 
 export const AuthContext = createContext({});
 
@@ -10,6 +11,7 @@ export const AuthContext = createContext({});
 export function AuthProvider({ children }) {
     const [token, setToken] = useState("");
     const [user, setUser] = useState("");
+    const [profileImage, setProfileImage] = useState("");
 
     async function loginUser(email, password) {
         try {
@@ -23,6 +25,8 @@ export function AuthProvider({ children }) {
 
             setToken(resposta.data.token);
 
+            setProfileImage(`${env.api_url}/${decoded.imagePath}`)
+
             localStorage.setItem('@greenhubDONOR:token', resposta.data.token);
 
             return true;
@@ -35,6 +39,18 @@ export function AuthProvider({ children }) {
 
             return false
         }
+    }
+
+    async function updateUser(userData) {
+        const { data } = await api.put(`/user/${user?.id}`, { ...userData });
+
+        console.log("DATA DE UPDATE", data);
+        console.log("UPDATE", userData);
+
+        localStorage.setItem("@greenhubDONOR:token", data.token);
+
+        setToken(data.token);
+        setUser(data.user);
     }
 
     async function registerUser(body) {
@@ -68,6 +84,7 @@ export function AuthProvider({ children }) {
         if (token) {
             setToken(token);
             const decoded = jwtDecode(token);
+            setProfileImage(`${env.api_url}/${decoded.imagePath}`)
             setUser(decoded);
         }
     }, [])
@@ -85,7 +102,10 @@ export function AuthProvider({ children }) {
                 user,
                 loginUser,
                 registerUser,
-                logout
+                logout,
+                updateUser,
+                profileImage,
+                setProfileImage
             }}
         >
             {children}

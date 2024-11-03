@@ -5,7 +5,7 @@ import { Box, Typography, CardContent, Card, CardMedia, Paper, CardActionArea, A
 
 export function CardProject(data) {
     const navigate = useNavigate();
-    const [srcImage, setSrcImage] = useState(`${env.base_url_api}/${data.imagePath}`);
+    const [srcImage, setSrcImage] = useState(`${env.api_url}/${data.imagePath}`);
 
     const getRandomProfileImage = () => {
         const profileImages = [
@@ -22,7 +22,7 @@ export function CardProject(data) {
 
     // eslint-disable-next-line react/prop-types
     const CustomAvatar = ({ imagePath, name }) => {
-        const [avatarSrc, setAvatarSrc] = useState(`${env.base_url_api}/${imagePath}`);
+        const [avatarSrc, setAvatarSrc] = useState(`${env.api_url}/${imagePath}`);
 
         return (
             <Avatar

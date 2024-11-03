@@ -1,11 +1,13 @@
 import { LogoComponent } from '../Logo';
 import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import SelectChangeLanguage from '../SelectChangeLanguage';
 import { Article, ExitToApp, Home, Person } from '@mui/icons-material';
 import { AppBar, Button, IconButton, Stack, Toolbar, Tooltip } from '@mui/material';
 
 // eslint-disable-next-line react/prop-types
 export function AppBarComponent({ color = 'white' }) {
+    const path = useLocation();
     const navigate = useNavigate();
     const { token, logout } = useAuth();
 
@@ -20,10 +22,19 @@ export function AppBarComponent({ color = 'white' }) {
                     spacing={2}
                     justifyContent='end'
                 >
-                    <Button color="inherit" onClick={() => navigate('/')} startIcon={<Home />}>
+                    <SelectChangeLanguage />
+                    <Button
+                        color={path.pathname === '/' ? "success" : "inherit"}
+                        onClick={() => navigate('/')}
+                        startIcon={<Home />}
+                    >
                         Home
                     </Button>
-                    <Button color="inherit" onClick={() => navigate('/project')} startIcon={<Article />}>
+                    <Button
+                        color={path.pathname === '/project' ? "success" : "inherit"}
+                        onClick={() => navigate('/project')}
+                        startIcon={<Article />}
+                    >
                         Projetos
                     </Button>
 
@@ -57,7 +68,7 @@ export function AppBarComponent({ color = 'white' }) {
                                 </IconButton>
                             </Tooltip>
                             <Tooltip title="Ver perfil">
-                                <IconButton>
+                                <IconButton onClick={() => navigate('/profile')}>
                                     <Person />
                                 </IconButton>
                             </Tooltip>

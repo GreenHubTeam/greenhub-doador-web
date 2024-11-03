@@ -3,9 +3,9 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useState } from 'react';
 import { env } from '../../env/index';
+import { useNavigate } from 'react-router-dom';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Avatar, Box, Card, CardContent, CardMedia, Grid2, Stack, Typography, } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 dayjs.locale('pt-br');
 dayjs.extend(relativeTime);
@@ -19,7 +19,7 @@ export function CardPost({
     profilePagePathImage = null,
     ongId
 }) {
-    const [postSrc, setPostSrc] = useState(postImagePath ? `${env.base_url_api}/${postImagePath}` : "/profile1.png");
+    const [postSrc, setPostSrc] = useState(postImagePath ? `${env.api_url}/${postImagePath}` : "/profile1.png");
 
     const getRandomProfileImage = () => {
         if (profilePagePathImage) {
@@ -41,7 +41,7 @@ export function CardPost({
     const navigate = useNavigate();
 
     const CustomAvatar = ({ imagePath, name, id }) => {
-        const [avatarSrc, setAvatarSrc] = useState(`${env.base_url_api}/${imagePath}`);
+        const [avatarSrc, setAvatarSrc] = useState(`${env.api_url}/${imagePath}`);
 
         return (
             <Avatar

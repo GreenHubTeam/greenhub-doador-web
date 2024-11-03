@@ -1,34 +1,46 @@
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-coverflow';
+import { env } from '../../env/index';
+import { api } from '../../libs/axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Favorite } from '@mui/icons-material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Autoplay } from 'swiper/modules';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-
-const projects = [
-    {
-        title: "Projeto 1",
-        description: "Descrição do Projeto 1.",
-        imagePath: "/fotoonça.png"
-    },
-    {
-        title: "Projeto 2",
-        description: "Descrição do Projeto 2.",
-        imagePath: "/fotoonça.png"
-    },
-    {
-        title: "Projeto 3",
-        description: "Descrição do Projeto 3.",
-        imagePath: "/fotoonça.png"
-    },
-    {
-        title: "Projeto 4",
-        description: "Descrição do Projeto 4.",
-        imagePath: "/fotoonça.png"
-    },
-];
+import { Card, CardActionArea, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
 export function SlideProject() {
+    const [projectsData, setProjectsData] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const { data } = await api.get('/project/highlights');
+
+            setProjectsData(data);
+        }
+
+        fetchProjects();
+
+        return () => new AbortController().abort();
+    }, [])
+
+    const MediaComponentCustomize = (imagePath) => {
+        const [imageURL, setImageURL] = useState(`${env.api_url}/${imagePath.imagePath}`);
+
+        return (
+            <CardMedia
+                component='img'
+                sx={{ height: 200 }}
+                src={imageURL}
+                onError={() => {
+                    setImageURL("/bannerProject.png")
+                }}
+            />
+        )
+    };
+
     return (
         <Swiper
             modules={[EffectCoverflow, Autoplay]}
@@ -48,18 +60,27 @@ export function SlideProject() {
             slidesPerView={2}
         >
             {
-                projects.map((project, index) => (
+                projectsData?.map((project, index) => (
                     <SwiperSlide key={index}>
                         <Card sx={{ mx: 'auto' }}>
-                            <CardMedia component='img' src={project.imagePath} />
-                            <CardContent>
-                                <Typography variant="h5" component="div">
-                                    {project.title}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" >
-                                    {project.description}
-                                </Typography>
-                            </CardContent>
+                            <CardActionArea onClick={() => navigate(`/project/${project.id}`)}>
+                                <MediaComponentCustomize imagePath={project.imagePath} />
+                                <CardContent>
+                                    <Typography variant="h5" component="div">
+                                        {project.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary" noWrap>
+                                        {project.description}
+                                    </Typography>
+
+                                    <Stack direction='row' spacing={1} alignItems='center'>
+                                        <Favorite color='error' />
+                                        <Typography>
+                                            {project.likes}
+                                        </Typography>
+                                    </Stack>
+                                </CardContent>
+                            </CardActionArea>
                         </Card>
                     </SwiperSlide>
                 ))

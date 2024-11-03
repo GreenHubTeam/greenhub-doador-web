@@ -4,7 +4,6 @@ import { api } from "../../libs/axios";
 import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { Visibility } from "@mui/icons-material";
 import { Card, CardActionArea, CardContent, CardMedia, Grid2, Skeleton, Stack, Typography } from "@mui/material";
 
 export function ListLatestProjects() {
@@ -33,7 +32,7 @@ export function ListLatestProjects() {
     }, [user.id])
 
     const CardMediaCustom = (imagePath) => {
-        const [srcImage, setSrcImage] = useState(`${env.api_url}/${imagePath}`)
+        const [srcImage, setSrcImage] = useState(`${env.api_url}/${imagePath.imagePath}`)
 
         return (
             <CardMedia
@@ -68,13 +67,6 @@ export function ListLatestProjects() {
                                     <Typography noWrap>
                                         {project.project.name}
                                     </Typography>
-
-                                    <Stack direction='row' alignItems='center' spacing={2}>
-                                        <Visibility />
-                                        <Typography>
-                                            {project.countView}
-                                        </Typography>
-                                    </Stack>
                                 </Stack>
                             </CardContent>
                         </CardActionArea>

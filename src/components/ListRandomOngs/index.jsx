@@ -45,7 +45,7 @@ export function ListRandomOngs() {
 
     // eslint-disable-next-line react/prop-types
     const CustomAvatar = ({ imagePath, name }) => {
-        const [avatarSrc, setAvatarSrc] = useState(`${env.base_url_api}/${imagePath}`);
+        const [avatarSrc, setAvatarSrc] = useState(`${env.api_url}/${imagePath}`);
 
         return (
             <Avatar

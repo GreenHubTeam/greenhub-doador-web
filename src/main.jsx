@@ -1,3 +1,4 @@
+import './language/i18n';
 import { StrictMode } from 'react';
 import { Box } from '@mui/material';
 import { RoutesMain } from './routes';

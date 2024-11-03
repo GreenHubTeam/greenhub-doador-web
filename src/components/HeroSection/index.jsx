@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import { AppBarComponent } from "../AppBar";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export function HeroSection() {
     const router = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <Box
@@ -61,14 +63,14 @@ export function HeroSection() {
                                 fontWeight={700}
                                 mb={2}
                             >
-                                Transforme o Futuro com Suas Doações
+                                {t('home.title')}
                             </Typography>
                             <Typography
                                 variant="h5"
                                 fontWeight={500}
                                 sx={{ color: '#dcdcdc' }}
                             >
-                                Conectamos doadores e ONGs para construir um mundo mais sustentável e justo. Apoie projetos que fazem a diferença.
+                                {t('home.description')}
                             </Typography>
 
                             <Button
@@ -76,7 +78,7 @@ export function HeroSection() {
                                 sx={{ backgroundColor: 'green', mt: '2rem', height: '3rem' }}
                                 onClick={() => router('/project')}
                             >
-                                Descubra Projetos Sustentáveis
+                                {t('home.buttonLabel')}
                             </Button>
                         </Box>
                     </motion.div>
