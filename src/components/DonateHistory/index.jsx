@@ -50,6 +50,11 @@ export function DonateHistoryComponent({ userId }) {
             const { data } = await api.get(`/donation/restart/${donateId}`);
 
             const { url } = data;
+
+            if (!url) {
+                return toast.warning("Error ao gerar o link, se você já concluiu o pagamento, entre novamente mais tarde")
+            }
+
             window.location.href = url;
         } catch {
             toast.error("Error ao gerar o link de pagamento");

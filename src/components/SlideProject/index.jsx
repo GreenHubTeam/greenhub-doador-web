@@ -10,6 +10,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Autoplay } from 'swiper/modules';
 import { Card, CardActionArea, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
+const stripHtmlTags = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+};
+
 export function SlideProject() {
     const [projectsData, setProjectsData] = useState(null);
     const navigate = useNavigate();
@@ -69,8 +75,11 @@ export function SlideProject() {
                                     <Typography variant="h5" component="div">
                                         {project.name}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" noWrap>
-                                        {project.description}
+
+                                    <Typography
+                                        noWrap
+                                    >
+                                        {stripHtmlTags(project.description)}
                                     </Typography>
 
                                     <Stack direction='row' spacing={1} alignItems='center'>

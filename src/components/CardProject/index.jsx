@@ -3,6 +3,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography, CardContent, Card, CardMedia, Paper, CardActionArea, Avatar, } from '@mui/material';
 
+const stripHtmlTags = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+};
+
 export function CardProject(data) {
     const navigate = useNavigate();
     const [srcImage, setSrcImage] = useState(`${env.api_url}/${data.imagePath}`);
@@ -68,13 +74,9 @@ export function CardProject(data) {
                         </Box>
 
                         <Typography
-                            sx={{
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap'
-                            }}
+                            noWrap
                         >
-                            {data.description}
+                            {stripHtmlTags(data.description)}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

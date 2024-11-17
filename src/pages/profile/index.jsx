@@ -10,9 +10,10 @@ import { useAuth } from '../../hooks/useAuth';
 import { formatCPF } from '../../utils/formatCPF';
 import { isValidCPF } from "../../utils/isValidCPF";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AssignmentInd, Email, Person, PhotoCamera } from "@mui/icons-material";
-import { Avatar, Badge, Box, Button, Card, CardContent, Chip, Grid2, IconButton, InputAdornment, Stack, TextField, Typography } from "@mui/material";
+import { getStatusChip } from "../../utils/getTypeChip";
 import { DonateHistoryComponent } from "../../components/DonateHistory";
+import { AssignmentInd, Email, Person, PhotoCamera } from "@mui/icons-material";
+import { Avatar, Badge, Box, Button, Card, CardContent, Grid2, IconButton, InputAdornment, Stack, TextField, Typography } from "@mui/material";
 
 const profileSchema = z.object({
     name: z.string().min(3, "Nome é obrigatório"),
@@ -143,7 +144,7 @@ export default function ProfileComponent() {
                                 {user?.name}
                             </Typography>
 
-                            <Chip label="DOADOR" color="success" />
+                            {getStatusChip(user?.type)}
                         </Box>
                     </Box>
 
