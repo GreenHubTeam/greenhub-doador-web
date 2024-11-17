@@ -4,6 +4,7 @@ import { Projects } from '../pages/project';
 import { Register } from '../pages/register';
 import { Route, Routes } from 'react-router-dom';
 import ProjectDetail from '../pages/project/detail';
+import { NotFoundPage } from '../pages/not-found';
 
 export function AuthRoutes() {
     return (
@@ -13,6 +14,7 @@ export function AuthRoutes() {
             <Route path='/signup' element={<Register />} />
             <Route path='/project' element={<Projects />} />
             <Route path='/project/:id' element={<ProjectDetail />} />
+            <Route path='*' element={<NotFoundPage />} />
         </Routes>
     );
 };

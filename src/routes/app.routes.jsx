@@ -6,6 +6,7 @@ import ProjectDetail from "../pages/project/detail";
 import DonationSuccess from "../pages/donate/success";
 import { LayoutLogged } from "../components/LayoutLogged";
 import ProfileComponent from "../pages/profile";
+import { NotFoundPage } from "../pages/not-found";
 
 export function AppRoutes() {
     return (
@@ -18,6 +19,7 @@ export function AppRoutes() {
                 <Route path="/profile" element={<ProfileComponent />} />
                 <Route path="/ong/:id" element={<OngProfileComponent />} />
             </Route>
+            <Route path='*' element={<NotFoundPage />} />
         </Routes>
     )
 };
