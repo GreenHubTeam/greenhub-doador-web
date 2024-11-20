@@ -36,7 +36,7 @@ export default function ProjectDetail() {
                 const projectDetail = await api.get(`/project/one/${projectId}`, { params: { userId: user?.id } });
                 setProjectData(projectDetail.data);
                 setSrcImage(`${env.api_url}/${projectDetail.data.imagePath}`);
-            } catch (error){
+            } catch (error) {
                 console.log(error);
                 toast.error("Error ao carregar os dados do projeto");
             } finally {
@@ -84,7 +84,7 @@ export default function ProjectDetail() {
                                 </Button>
                             </Grid2>
 
-                            <Grid2 size={{xs: 12, md: 8}}>
+                            <Grid2 size={{ xs: 12, md: 8 }}>
                                 <Card variant="outlined">
                                     <CardMedia
                                         component='img'
@@ -108,24 +108,26 @@ export default function ProjectDetail() {
 
                                         <Divider />
 
-                                        <Typography
+                                        <Box
+                                            component='div'
+                                            dangerouslySetInnerHTML={{ __html: projectData.description }}
                                             sx={{
                                                 my: '2rem'
                                             }}
-                                        >
-                                            {projectData.description}
-                                        </Typography>
+                                        />
 
                                         <Divider />
 
-                                        <Stack direction='column' spacing={2} mt={4}>
-                                            <CreateFeedbackComponent projectId={projectId} />
-                                        </Stack>
+                                        {user && (
+                                            <Stack direction='column' spacing={2} mt={4}>
+                                                <CreateFeedbackComponent projectId={projectId} />
+                                            </Stack>
+                                        )}
                                     </CardContent>
                                 </Card>
                             </Grid2>
 
-                            <Grid2 size={{xs: 12, md: 4}}>
+                            <Grid2 size={{ xs: 12, md: 4 }}>
                                 <Card variant="outlined">
                                     <CardContent>
                                         <DescDetail

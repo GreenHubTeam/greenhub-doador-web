@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Favorite } from '@mui/icons-material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Autoplay } from 'swiper/modules';
-import { Card, CardActionArea, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Stack, Typography, useMediaQuery } from '@mui/material';
 
 const stripHtmlTags = (html) => {
     const div = document.createElement("div");
@@ -19,6 +19,8 @@ const stripHtmlTags = (html) => {
 export function SlideProject() {
     const [projectsData, setProjectsData] = useState([]);
     const navigate = useNavigate();
+
+    const isMobile = useMediaQuery("(max-width:768px)")
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -58,12 +60,12 @@ export function SlideProject() {
                 modifier: 1,
                 slideShadows: true,
             }}
-            autoplay={{ delay: 4000 }}
+            autoplay={{ delay: isMobile ? 2000 : 4000 }}
             grabCursor={true}
             centeredSlides={true}
             style={{ padding: '20px 0' }}
             loop
-            slidesPerView={2}
+            slidesPerView={isMobile ? 1 : 2}
         >
             {
                 Array.isArray(projectsData) && projectsData.map((project, index) => (
@@ -72,7 +74,7 @@ export function SlideProject() {
                             <CardActionArea onClick={() => navigate(`/project/${project.id}`)}>
                                 <MediaComponentCustomize imagePath={project.imagePath} />
                                 <CardContent>
-                                    <Typography variant="h5" component="div">
+                                    <Typography variant="h5" noWrap>
                                         {project.name}
                                     </Typography>
 

@@ -3,7 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SelectChangeLanguage from '../SelectChangeLanguage';
 import { Article, ExitToApp, Home, Menu, Person } from '@mui/icons-material';
-import { AppBar, Button, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Stack, Toolbar, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { AppBar, Button, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Stack, Toolbar, Tooltip, useMediaQuery } from '@mui/material';
 import { LogoComponent } from '../Logo';
 
 // eslint-disable-next-line react/prop-types
@@ -11,7 +11,6 @@ export function AppBarComponent({ color = 'white' }) {
     const path = useLocation();
     const navigate = useNavigate();
     const { token, logout } = useAuth();
-    const theme = useTheme();
     const isMobile = useMediaQuery("(max-width:768px)");
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -21,7 +20,7 @@ export function AppBarComponent({ color = 'white' }) {
     };
 
     const DrawerContent = (
-        <List>
+        <List sx={{ width: '70vw' }}>
             <ListItem button onClick={() => handleNavigate('/')}>
                 <ListItemIcon><Home /></ListItemIcon>
                 <ListItemText primary="Home" />
@@ -59,8 +58,8 @@ export function AppBarComponent({ color = 'white' }) {
     );
 
     return (
-        <AppBar sx={{ color, backgroundColor: 'transparent', border: 'none', boxShadow: 'none' }} position="static">
-            <Toolbar sx={{ padding: '.6rem', justifyContent: 'space-between' }}>
+        <AppBar sx={{ color, backgroundColor: color === 'black' && isMobile ? 'white' : 'transparent', border: isMobile ? 'auto' : 'none', boxShadow: 'none' }} position={isMobile ? 'sticky' : 'static'}>
+            <Toolbar sx={{ padding: '1rem', justifyContent: 'space-between' }}>
                 <LogoComponent />
 
                 {isMobile ? (

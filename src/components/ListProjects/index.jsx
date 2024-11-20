@@ -49,7 +49,7 @@ export function ListProjects({ ongId, viewProfile = false }) {
     }, [searchFilter, page, ongId]);
 
     return (
-        <Grid2 container spacing={3} size={12} my={4}>
+        <Grid2 container spacing={3} size={12} my={{ xs: 2, md: 4 }}>
             <Grid2 size={12}>
                 <TextField
                     fullWidth
@@ -92,7 +92,7 @@ export function ListProjects({ ongId, viewProfile = false }) {
             </Grid2>
             {!projectsData || isLoading ?
                 Array.from([1, 2].map((index) => (
-                    <Grid2 key={index} size={6}>
+                    <Grid2 key={index} size={{ xs: 12, md: 6 }}>
                         <Skeleton height={300} variant="rounded" animation='wave' />
                     </Grid2>
                 )))

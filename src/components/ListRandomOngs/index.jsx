@@ -3,14 +3,12 @@ import { toast } from "react-toastify";
 import { api } from "../../libs/axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Avatar, Card, CardActionArea, CardContent, Grid2, Skeleton, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Avatar, Card, CardActionArea, CardContent, Grid2, Skeleton, Stack, Typography, useMediaQuery } from "@mui/material";
 
 export function ListRandomOngs() {
     const [ongsData, setOngsData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
-    const theme = useTheme();
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
+    const isMobile = useMediaQuery('(max-width: 768px)');
     useEffect(() => {
         const fetchRandomOngs = async () => {
             setIsLoading(true);
@@ -44,6 +42,7 @@ export function ListRandomOngs() {
 
     const navigate = useNavigate();
 
+    // eslint-disable-next-line react/prop-types
     const CustomAvatar = ({ imagePath, name }) => {
         const [avatarSrc, setAvatarSrc] = useState(`${env.api_url}/${imagePath}`);
 
@@ -54,28 +53,51 @@ export function ListRandomOngs() {
                 onError={() => setAvatarSrc(getRandomProfileImage())}
                 sx={{
                     cursor: "pointer",
-                    ...(isMobile && { width: 56, height: 56 }), 
+                    ...(isMobile && { width: 56, height: 56 }),
                 }}
             />
         );
     };
 
     return (
-        <Grid2 container spacing={2}>
+        <Grid2
+            container
+            spacing={2}
+            sx={{
+                display: 'flex',
+                overflowX: 'auto',
+                flexWrap: {
+                    xs: 'nowrap',
+                    md: 'wrap'
+                },
+            }}
+        >
             {isLoading &&
                 Array.from({ length: 3 }).map((_, index) => (
-                    <Grid2 key={index} size={12}>
+                    <Grid2
+                        key={index}
+                        sx={{ flex: '0 0 auto', width: 300 }} // Largura fixa para cada card no overflow
+                    >
                         <Skeleton height={100} variant="rounded" animation="wave" />
                     </Grid2>
                 ))}
 
             {ongsData &&
                 ongsData.map((ong, index) => (
-                    <Grid2 key={index} size={12}>
+                    <Grid2
+                        key={index}
+                        sx={{
+                            width: {
+                                xs: 100,
+                                md: '100%'
+                            },
+                            flex: '0 0 auto'
+                        }}
+                    >
                         <Card
                             variant="outlined"
                             sx={{
-                                ...(isMobile && { marginBottom: "10px" }), 
+                                ...(isMobile && { border: 'none' }),
                             }}
                         >
                             <CardActionArea
@@ -85,21 +107,14 @@ export function ListRandomOngs() {
                             >
                                 <CardContent>
                                     <Stack
-                                        direction="row"
-                                        alignItems="center"
-                                        spacing={2}
-                                        sx={{
-                                            ...(isMobile && { flexDirection: "column", textAlign: "center" }),
-                                        }}
+                                        direction={{ xs: 'column', md: 'row' }}
+                                        spacing={{ xs: 1, md: 2 }}
+                                        alignItems='center'
+                                        sx={{ width: '100%' }}
                                     >
                                         <CustomAvatar imagePath={ong.imagePath} name={ong.name} />
 
-                                        <Typography
-                                            noWrap
-                                            sx={{
-                                                ...(isMobile && { whiteSpace: "normal" }), 
-                                            }}
-                                        >
+                                        <Typography noWrap sx={{ width: '100%', textAlign: 'center' }}>
                                             {ong.name}
                                         </Typography>
                                     </Stack>
@@ -109,5 +124,6 @@ export function ListRandomOngs() {
                     </Grid2>
                 ))}
         </Grid2>
+
     );
 }

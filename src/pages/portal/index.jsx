@@ -1,30 +1,28 @@
 import { ListPost } from "../../components/ListPosts";
 import { ListRandomOngs } from "../../components/ListRandomOngs";
-import { Box, Card, CardContent, Grid2, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Grid2, Typography, useMediaQuery } from "@mui/material";
 import { ListLatestProjects } from "../../components/listLastestProjects";
 
 export function Portal() {
-    const theme = useTheme();
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
+    const isMobile = useMediaQuery('(max-width: 768px)');
     return (
         <Box flexGrow={1}>
             <Box
-                padding={{ xs: "0 1rem", md: "0 7rem" }} 
+                padding={{ xs: "0 1rem", md: "0 7rem" }}
                 my={4}
                 minHeight="100dvh"
             >
                 <Grid2
                     container
                     spacing={2}
-                    direction={isMobile ? "column" : "row"} 
                 >
-                    <Grid2 size={isMobile ? 12 : 3}>
+                    <Grid2 order={{ xs: 3, md: 1 }} size={{ xs: 12, md: 3 }}>
                         <Card
                             variant="outlined"
                             sx={{
-                                position: isMobile ? "relative" : "sticky", 
+                                position: isMobile ? "relative" : "sticky",
                                 top: isMobile ? "unset" : 30,
-                                marginBottom: isMobile ? "1rem" : "unset", 
+                                marginBottom: isMobile ? "1rem" : "unset",
                             }}
                         >
                             <CardContent>
@@ -36,17 +34,17 @@ export function Portal() {
                         </Card>
                     </Grid2>
 
-                    <Grid2 size={{xs: 12, md: 6}}>
+                    <Grid2 order={{ xs: 2 }} size={{ xs: 12, md: 6 }}>
                         <ListPost />
                     </Grid2>
 
-                    <Grid2 size={{xs: 12, md: 3}}>
+                    <Grid2 order={{ xs: 1, md: 3 }} size={{ xs: 12, md: 3 }}>
                         <Card
                             variant="outlined"
                             sx={{
-                                position: isMobile ? "relative" : "sticky", 
+                                position: isMobile ? "relative" : "sticky",
                                 top: isMobile ? "unset" : 30,
-                                marginTop: isMobile ? "1rem" : "unset", 
+                                marginTop: 0,
                             }}
                         >
                             <CardContent>
@@ -60,6 +58,6 @@ export function Portal() {
                     </Grid2>
                 </Grid2>
             </Box>
-        </Box>
+        </Box >
     );
 }

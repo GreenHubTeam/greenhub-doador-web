@@ -123,7 +123,7 @@ export default function ProfileComponent() {
                     >
                         <Avatar
                             src={profileImage}
-                            alt="Foto de perfil"
+                            alt={user?.name || "FOTO DE PERFIL"}
                             sx={{ height: '100px', width: '100px' }}
                         />
 
@@ -147,7 +147,7 @@ export default function ProfileComponent() {
                     </Box>
 
                     <Grid2 mt={4} container spacing={3}>
-                        <Grid2 size={{xs:12, md:4}}>
+                        <Grid2 size={{ xs: 12, md: 4 }}>
                             <Stack spacing={2}>
                                 <Card variant="outlined">
                                     <CardContent>
@@ -181,7 +181,7 @@ export default function ProfileComponent() {
                             </Stack>
                         </Grid2>
 
-                        <Grid2 size={{xs:12, md:8}}>
+                        <Grid2 size={{ xs: 12, md: 8 }}>
                             <Card variant="outlined">
                                 <CardContent>
                                     <Typography variant="subtitle1" color="success" mb={3}>
@@ -288,6 +288,23 @@ export default function ProfileComponent() {
                                             sx={{
                                                 backgroundColor: '#e7e7e7',
                                                 borderRadius: '8px',
+                                                '& .MuiOutlinedInput-root': {
+                                                    '& fieldset': {
+                                                        borderColor: 'transparent'
+                                                    },
+                                                    '&:hover fieldset': {
+                                                        borderColor: 'transparent',
+                                                    },
+                                                    '&.Mui-focused fieldset': {
+                                                        borderColor: 'transparent',
+                                                    },
+                                                },
+                                                '& .MuiInputLabel-root': {
+                                                    color: 'black',
+                                                },
+                                                '& .MuiInputLabel-root.Mui-focused': {
+                                                    color: 'green',
+                                                },
                                             }}
                                             slotProps={{
                                                 input: {
@@ -309,6 +326,23 @@ export default function ProfileComponent() {
                                             sx={{
                                                 backgroundColor: '#e7e7e7',
                                                 borderRadius: '8px',
+                                                '& .MuiOutlinedInput-root': {
+                                                    '& fieldset': {
+                                                        borderColor: 'transparent'
+                                                    },
+                                                    '&:hover fieldset': {
+                                                        borderColor: 'transparent',
+                                                    },
+                                                    '&.Mui-focused fieldset': {
+                                                        borderColor: 'transparent',
+                                                    },
+                                                },
+                                                '& .MuiInputLabel-root': {
+                                                    color: 'black',
+                                                },
+                                                '& .MuiInputLabel-root.Mui-focused': {
+                                                    color: 'green',
+                                                },
                                             }}
                                             slotProps={{
                                                 input: {

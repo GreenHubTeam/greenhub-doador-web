@@ -1,4 +1,3 @@
-import theme from "../../theme/theme";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 import { LogoComponent } from "../../components/Logo";
@@ -7,7 +6,7 @@ import { FormLoginComponent } from "../../components/FormLogin";
 import { Box, Button, Card, CardContent, Container, Divider, Grid2, Typography, useMediaQuery } from "@mui/material";
 
 export function Login() {
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
+    const isMobile = useMediaQuery('(max-width: 768px)');
 
     return (
         <Grid2 sx={{ height: '100dvh' }} container>
@@ -28,7 +27,6 @@ export function Login() {
                         variant="outlined"
                         sx={{
                             borderRadius: '1rem',
-                            boxShadow: isMobile ? '0px 4px 10px rgba(0,0,0,0.1)' : 'none',
                             overflow: 'hidden',
                         }}
                     >

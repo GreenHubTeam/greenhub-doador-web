@@ -85,7 +85,7 @@ export default function OngProfileComponent() {
 
     return (
         <Grid2 container>
-            <Grid2 size={12} padding={4}>
+            <Grid2 size={12} padding={{ xs: 1, md: 4 }}>
                 <Box
                     sx={{
                         display: 'flex',
@@ -119,7 +119,7 @@ export default function OngProfileComponent() {
                             alignItems: 'center',
                             gap: '1rem',
                             marginTop: '-3.5rem',
-                            paddingLeft: { xs: '1rem', sm: '3rem' }, 
+                            paddingLeft: { xs: '1rem', sm: '3rem' },
                             zIndex: 1,
                         }}
                     >
@@ -159,7 +159,7 @@ export default function OngProfileComponent() {
 
                     {!isLoading && ongData && (
                         <Grid2 mt={4} container spacing={3}>
-                            <Grid2 size={{xs:12, md:4}}>
+                            <Grid2 size={{ xs: 12, md: 4 }}>
                                 <Card variant="outlined">
                                     <CardContent>
                                         <Typography variant="h6" mb={2}>
@@ -234,7 +234,7 @@ export default function OngProfileComponent() {
                                 </Card>
                             </Grid2>
 
-                            <Grid2 size={{xs:12, md:8}}>
+                            <Grid2 size={{ xs: 12, md: 8 }}>
                                 <Card variant="outlined">
                                     <Box sx={{ width: '100%' }}>
                                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

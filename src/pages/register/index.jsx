@@ -1,4 +1,3 @@
-import theme from "../../theme/theme";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 import { LogoComponent } from "../../components/Logo";
@@ -7,18 +6,18 @@ import { FormRegisterComponent } from "../../components/FormRegister";
 import { Box, Button, Card, CardContent, Container, Divider, Grid2, Typography, useMediaQuery } from "@mui/material";
 
 export function Register() {
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
+    const isMobile = useMediaQuery('(max-width: 768px)');
 
     return (
-        <Grid2 
-            container 
-            sx={{ 
+        <Grid2
+            container
+            sx={{
                 height: '100dvh',
                 flexDirection: isMobile ? 'column' : 'row',
             }}
         >
             <Grid2
-                size={{xs:12, md:8}}
+                size={{ xs: 12, md: 8 }}
                 sx={{
                     height: isMobile ? 'auto' : '100%',
                     display: 'flex',
@@ -29,13 +28,13 @@ export function Register() {
                 }}
             >
                 <Container maxWidth={isMobile ? 'xs' : 'sm'}>
-                    <Card variant="outlined" sx={{ boxShadow: isMobile ? 'none' : '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                    <Card variant="outlined" sx={{ borderRadius: '1rem', }}>
                         <CardContent sx={{ padding: isMobile ? '1.5rem' : '2rem' }}>
                             <Button
                                 variant="text"
                                 startIcon={<ArrowBack />}
-                                sx={{ 
-                                    color: 'green', 
+                                sx={{
+                                    color: 'green',
                                     mb: isMobile ? '1rem' : '.5rem',
                                     fontSize: isMobile ? '0.9rem' : '1rem',
                                 }}
@@ -62,7 +61,7 @@ export function Register() {
                                         Informe suas credenciais
                                     </Typography>
                                 </Box>
-                                {!isMobile && <LogoComponent />} 
+                                {!isMobile && <LogoComponent />}
                             </Box>
 
                             <Divider sx={{ my: isMobile ? '1.5rem' : '2rem' }} />
@@ -84,7 +83,11 @@ export function Register() {
                                 <Box
                                     component={Link}
                                     to='/signin'
-                                    sx={{ color: 'green' }}
+                                    sx={{
+                                        color: 'green',
+                                        fontWeight: 'bold',
+                                        textDecoration: 'none',
+                                    }}
                                 >
                                     Entre aqui
                                 </Box>

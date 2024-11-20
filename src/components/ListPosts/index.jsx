@@ -2,18 +2,16 @@ import { api } from "../../libs/axios";
 import { toast } from "react-toastify";
 import { CardPost } from "../CardPost";
 import { useEffect, useState } from "react";
-import { Grid2, Pagination, Skeleton, useMediaQuery, useTheme } from "@mui/material";
+import { Grid2, Pagination, Skeleton } from "@mui/material";
 
 const PAGE_SIZE = 10;
 
+// eslint-disable-next-line react/prop-types
 export function ListPost({ ongId }) {
     const [postData, setPostData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [count, setCount] = useState(1);
     const [page, setPage] = useState(1);
-
-    const theme = useTheme();
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     async function fetchPost() {
         setIsLoading(true);
@@ -43,10 +41,6 @@ export function ListPost({ ongId }) {
         <Grid2
             container
             spacing={2}
-            sx={{
-                padding: "20px", 
-                ...(isMobile && { padding: "10px" }), 
-            }}
         >
             {isLoading &&
                 Array.from({ length: PAGE_SIZE }).map((_, index) => (
@@ -59,7 +53,7 @@ export function ListPost({ ongId }) {
                 postData &&
                 postData.length > 0 &&
                 postData.map((post, index) => (
-                    <Grid2 size={12} 
+                    <Grid2 size={12}
                         key={index}
                     >
                         <CardPost
@@ -85,7 +79,7 @@ export function ListPost({ ongId }) {
                         color="primary"
                         sx={{
                             marginTop: "20px",
-                            marginBottom: "2rem", 
+                            marginBottom: "2rem",
                         }}
                     />
                 </Grid2>

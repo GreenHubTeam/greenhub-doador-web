@@ -19,7 +19,7 @@ export function FormLoginComponent() {
     const { loginUser } = useAuth();
     const navigate = useNavigate();
 
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
+    const isMobile = useMediaQuery('(max-width: 768px)');
 
     const {
         register,
@@ -45,12 +45,6 @@ export function FormLoginComponent() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
-                maxWidth: isMobile ? '90%' : '400px',
-                margin: isMobile ? '2rem auto' : '0 auto',
-                padding: isMobile ? '1.5rem' : '0',
-                boxShadow: isMobile ? '0px 2px 8px rgba(0,0,0,0.1)' : 'none',
-                borderRadius: isMobile ? '1rem' : 'none',
-                backgroundColor: isMobile ? '#fff' : 'transparent',
             }}
         >
             <TextField
