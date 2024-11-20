@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Favorite } from '@mui/icons-material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Autoplay } from 'swiper/modules';
-import { Card, CardActionArea, CardContent, CardMedia, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
 const stripHtmlTags = (html) => {
     const div = document.createElement("div");
@@ -17,22 +17,20 @@ const stripHtmlTags = (html) => {
 };
 
 export function SlideProject() {
-    const [projectsData, setProjectsData] = useState(null);
+    const [projectsData, setProjectsData] = useState([]);
     const navigate = useNavigate();
-    const theme = useTheme();
-
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     useEffect(() => {
         const fetchProjects = async () => {
             const { data } = await api.get('/project/highlights');
+
             setProjectsData(data);
-        };
+        }
 
         fetchProjects();
 
         return () => new AbortController().abort();
-    }, []);
+    }, [])
 
     const MediaComponentCustomize = (imagePath) => {
         const [imageURL, setImageURL] = useState(`${env.api_url}/${imagePath.imagePath}`);
@@ -65,10 +63,10 @@ export function SlideProject() {
             centeredSlides={true}
             style={{ padding: '20px 0' }}
             loop
-            slidesPerView={isMobile ? 1 : 2} 
+            slidesPerView={2}
         >
             {
-                projectsData?.map((project, index) => (
+                Array.isArray(projectsData) && projectsData.map((project, index) => (
                     <SwiperSlide key={index}>
                         <Card sx={{ mx: 'auto' }}>
                             <CardActionArea onClick={() => navigate(`/project/${project.id}`)}>
@@ -77,8 +75,11 @@ export function SlideProject() {
                                     <Typography variant="h5" component="div">
                                         {project.name}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" noWrap>
-                                        {project.description}
+
+                                    <Typography
+                                        noWrap
+                                    >
+                                        {stripHtmlTags(project.description)}
                                     </Typography>
 
                                     <Stack direction='row' spacing={1} alignItems='center'>
