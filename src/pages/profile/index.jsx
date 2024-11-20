@@ -1,5 +1,3 @@
-'use client'
-
 import { z } from "zod";
 import { env } from "../../env";
 import { toast } from "react-toastify";

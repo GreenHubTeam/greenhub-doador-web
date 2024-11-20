@@ -14,7 +14,6 @@ import { ButtonLikeComponent } from "../../../components/ButtonLike";
 import { ArrowBack, Group, VolunteerActivism } from "@mui/icons-material";
 import { CreateFeedbackComponent } from "../../../components/CreateFeedback";
 import { Avatar, Box, Button, Card, CardContent, CardMedia, Divider, Grid2, Skeleton, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { ButtonLikeComponent } from "../../../components/ButtonLike";
 
 dayjs.locale('pt-br');
 dayjs.extend(relativeTime);
