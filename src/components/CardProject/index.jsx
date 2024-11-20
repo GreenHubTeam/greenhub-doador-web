@@ -1,12 +1,16 @@
 import { env } from '../../env';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, CardContent, Card, CardMedia, Paper, CardActionArea, Avatar, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Typography, CardContent, Card, CardMedia, Paper, CardActionArea, Avatar, } from '@mui/material';
+
+const stripHtmlTags = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+};
 
 export function CardProject(data) {
     const navigate = useNavigate();
-    const theme = useTheme();
-    const isMobile = useMediaQuery('(max-width: 768px)'); 
     const [srcImage, setSrcImage] = useState(`${env.api_url}/${data.imagePath}`);
 
     const getRandomProfileImage = () => {
@@ -31,55 +35,38 @@ export function CardProject(data) {
                 src={avatarSrc}
                 alt={name}
                 onError={() => setAvatarSrc(getRandomProfileImage())}
-                sx={{
-                    cursor: 'pointer',
-                    width: isMobile ? 40 : 56, 
-                    height: isMobile ? 40 : 56,
-                }}
+                sx={{ cursor: 'pointer' }}
             />
         );
     };
 
     return (
-        <Paper
-            variant="outlined"
-            sx={{
-                margin: isMobile ? '0.5rem' : '1rem',
-                padding: isMobile ? '0.5rem' : '1rem',
-            }}
-        >
+        <Paper variant='outlined'>
             <Card elevation={0}>
                 <CardActionArea onClick={() => navigate(`/project/${data.id}`)}>
                     <CardMedia
-                        component="img"
-                        alt="Project Image"
-                        sx={{
-                            height: isMobile ? 150 : 200,
-                            objectFit: 'cover',
-                        }}
+                        component='img'
+                        alt='Project Image'
+                        sx={{ height: 200 }}
                         image={srcImage}
-                        title="Project Image"
+                        title='Project Image'
                         onError={() => {
-                            setSrcImage('/bannerProject.png');
+                            setSrcImage('/bannerProject.png')
                         }}
                     />
 
                     <CardContent>
                         <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: isMobile ? '0.5rem' : '1rem',
-                            }}
+                            sx={{ display: 'flex', justifyContent: 'space-between', gap: '.5re,' }}
                         >
                             <Typography
                                 sx={{
                                     fontWeight: '700',
-                                    fontSize: isMobile ? '1rem' : '1.35rem', 
+                                    fontSize: '1.35rem',
                                     marginBottom: '.4rem',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap',
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
                                 {data.name}
@@ -87,11 +74,7 @@ export function CardProject(data) {
                         </Box>
 
                         <Typography
-                            sx={{
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap'
-                            }}
+                            noWrap
                         >
                             {stripHtmlTags(data.description)}
                         </Typography>
@@ -105,28 +88,25 @@ export function CardProject(data) {
                                 display: 'flex',
                                 alignItems: 'center',
                                 height: '100%',
-                                gap: isMobile ? '0.5rem' : '1rem', 
+                                gap: '1rem'
                             }}
                         >
-                            <CustomAvatar
-                                imagePath={data.ongImagePath || ""}
-                                name={data.ongName}
-                            />
+                            <CustomAvatar imagePath={data.ongImagePath || ""} name={data.ongName} />
 
                             <Typography
                                 sx={{
-                                    fontSize: isMobile ? '0.85rem' : '1rem', 
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap',
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
                                 {data.ongName}
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                )}
+                )
+                }
             </Card>
-        </Paper>
-    );
+        </Paper >
+    )
 }

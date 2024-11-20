@@ -36,7 +36,8 @@ export default function ProjectDetail() {
                 const projectDetail = await api.get(`/project/one/${projectId}`, { params: { userId: user?.id } });
                 setProjectData(projectDetail.data);
                 setSrcImage(`${env.api_url}/${projectDetail.data.imagePath}`);
-            } catch {
+            } catch (error){
+                console.log(error);
                 toast.error("Error ao carregar os dados do projeto");
             } finally {
                 setLoading(false);

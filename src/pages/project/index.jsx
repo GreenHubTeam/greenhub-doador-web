@@ -1,12 +1,11 @@
 import { useAuth } from "../../hooks/useAuth";
-import { Box, Grid2, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Grid2, Typography, useMediaQuery } from "@mui/material";
 import { AppBarComponent } from "../../components/AppBar";
 import { FooterComponent } from "../../components/Footer";
 import { ListProjects } from "../../components/ListProjects";
 
 export function Projects() {
     const { user } = useAuth();
-    const theme = useTheme();
     const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     return (
