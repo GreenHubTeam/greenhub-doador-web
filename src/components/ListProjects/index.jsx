@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CardProject } from "../CardProject";
 import { Search } from "@mui/icons-material";
 import useSearch from "../../hooks/useSearch";
-import { Grid2, InputAdornment, Pagination, Skeleton, TextField } from "@mui/material";
+import { Grid2, InputAdornment, Pagination, Skeleton, TextField, useMediaQuery, useTheme } from "@mui/material";
 
 const PAGE_SIZE = 9;
 
@@ -17,30 +17,31 @@ export function ListProjects({ ongId, viewProfile = false }) {
 
     const { searchFilter, setSearchFilter } = useSearch();
 
+    const theme = useTheme();
+    const isMobile = useMediaQuery("(max-width:768px)");
     useEffect(() => {
         const fetchProjects = async () => {
             setIsLoading(true);
             try {
-
-                const url = ongId ? `/project/ong/${ongId}` : "/project/approved"
+                const url = ongId ? `/project/ong/${ongId}` : "/project/approved";
 
                 const { data } = await api.get(url, {
                     params: {
                         search: searchFilter,
                         page: page,
                         pageSize: PAGE_SIZE,
-                        status: "APPROVED"
-                    }
+                        status: "APPROVED",
+                    },
                 });
 
                 setProjectsData(data.projects);
                 setCount(data.count);
             } catch {
-                toast.error("Error ao buscar os projetos");
+                toast.error("Erro ao buscar os projetos");
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
 
         fetchProjects();
 
@@ -48,75 +49,76 @@ export function ListProjects({ ongId, viewProfile = false }) {
     }, [searchFilter, page, ongId]);
 
     return (
-        <Grid2 container spacing={3} size={12} my={4}>
+        <Grid2 container spacing={3} my={4}>
             <Grid2 size={12}>
                 <TextField
                     fullWidth
                     label="Procure pelo Nome do Projeto"
                     sx={{
                         flex: 1,
-                        backgroundColor: '#e7e7e7',
-                        borderRadius: '8px',
-                        '& .MuiOutlinedInput-root': {
-                            '& fieldset': {
-                                borderColor: 'transparent'
+                        backgroundColor: "#e7e7e7",
+                        borderRadius: "8px",
+                        "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                                borderColor: "transparent",
                             },
-                            '&:hover fieldset': {
-                                borderColor: 'transparent',
+                            "&:hover fieldset": {
+                                borderColor: "transparent",
                             },
-                            '&.Mui-focused fieldset': {
-                                borderColor: 'transparent',
+                            "&.Mui-focused fieldset": {
+                                borderColor: "transparent",
                             },
                         },
-                        '& .MuiInputLabel-root': {
-                            color: 'black',
+                        "& .MuiInputLabel-root": {
+                            color: "black",
                         },
-                        '& .MuiInputLabel-root.Mui-focused': {
-                            color: 'green',
+                        "& .MuiInputLabel-root.Mui-focused": {
+                            color: "green",
                         },
                     }}
                     slotProps={{
-                        input: {
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Search />
-                                </InputAdornment>
-                            ),
-                        },
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Search />
+                            </InputAdornment>
+                        ),
                     }}
                     onChange={(e) => {
                         setSearchFilter(e.target.value);
                     }}
                 />
             </Grid2>
-            {!projectsData || isLoading ?
-                Array.from([1, 2].map((index) => (
-                    <Grid2 key={index} size={6}>
-                        <Skeleton height={300} variant="rounded" animation='wave' />
-                    </Grid2>
-                )))
+            {!projectsData || isLoading
+                ? Array.from([1, 2].map((index) => (
+                      <Grid2 key={index} size={{xs: 12, md: 6}}>
+                          <Skeleton
+                              height={isMobile ? 200 : 300} 
+                              variant="rounded"
+                              animation="wave"
+                          />
+                      </Grid2>
+                  )))
                 : projectsData?.map((project, index) => (
-                    <Grid2 key={index} size={{
-                        xs: 12,
-                        sm: 6
-                    }}>
-                        <CardProject
-                            name={project.name}
-                            description={project.description}
-                            id={project.id}
-                            imagePath={project.imagePath}
-                            status={project.status}
-                            ongName={project.Ong?.name}
-                            ongId={project.Ong?.id}
-                            ongImagePath={project.Ong?.imagePath}
-                            viewProfile={viewProfile}
-                        />
-                    </Grid2>
-                ))
-            }
+                      <Grid2
+                          key={index}
+                          size={{xs: 12, md: 6}}
+                      >
+                          <CardProject
+                              name={project.name}
+                              description={project.description}
+                              id={project.id}
+                              imagePath={project.imagePath}
+                              status={project.status}
+                              ongName={project.Ong?.name}
+                              ongId={project.Ong?.id}
+                              ongImagePath={project.Ong?.imagePath}
+                              viewProfile={viewProfile}
+                          />
+                      </Grid2>
+                  ))}
 
             {projectsData && !isLoading && (
-                <Grid2 container size={12} alignItems='center' justifyContent='center'>
+                <Grid2 container size={12} justifyContent="center">
                     <Pagination
                         count={Math.ceil(count / PAGE_SIZE)}
                         page={page}
@@ -124,10 +126,13 @@ export function ListProjects({ ongId, viewProfile = false }) {
                             setPage(value);
                         }}
                         color="primary"
-                        sx={{ marginTop: '20px', mb: '2rem' }}
+                        sx={{
+                            marginTop: "20px",
+                            mb: isMobile ? "1rem" : "2rem", 
+                        }}
                     />
                 </Grid2>
             )}
         </Grid2>
-    )
+    );
 }

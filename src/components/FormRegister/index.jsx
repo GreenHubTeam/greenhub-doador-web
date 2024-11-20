@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { isValidCPF } from '../../utils/isValidCPF';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Visibility, VisibilityOff, Key, Person, AssignmentInd } from '@mui/icons-material';
-import { Box, Button, CircularProgress, Divider, Grid2, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, Divider, Grid2, IconButton, InputAdornment, TextField, useMediaQuery } from "@mui/material";
+import theme from '../../theme/theme';
 
 const RegisterSchema = z.object({
     name: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
     document: z.string().min(1, 'CPF do responsável é obrigatório').refine((value) => isValidCPF(value), "CPF invalido"),
     email: z.string().toLowerCase().email('E-mail inválido'),
-    password: z.string().min(3, "Senha deve ter no mínimo 3 caracteres").max(30, "Senha deve conter no maximo 30 caracteres")
+    password: z.string().min(3, "Senha deve ter no mínimo 3 caracteres").max(30, "Senha deve conter no máximo 30 caracteres")
 });
 
 export function FormRegisterComponent() {
@@ -29,6 +30,8 @@ export function FormRegisterComponent() {
     } = useForm({
         resolver: zodResolver(RegisterSchema)
     });
+
+    const isMobile = useMediaQuery("(max-width:768px)");
 
     async function handleRegister(data) {
         setIsLoading(true);
@@ -54,8 +57,9 @@ export function FormRegisterComponent() {
                 gap: '1rem'
             }}
         >
+
             <Grid2 container spacing={2}>
-                <Grid2 size={6}>
+                <Grid2 size={{xs: 12, md: 6}}>
                     <TextField
                         error={!!errors.name}
                         helperText={errors?.name?.message}
@@ -81,7 +85,7 @@ export function FormRegisterComponent() {
                     />
                 </Grid2>
 
-                <Grid2 size={6}>
+                <Grid2 size={{xs: 12, md: 6}}>
                     <TextField
                         error={!!errors.document}
                         helperText={errors?.document?.message}
@@ -106,9 +110,7 @@ export function FormRegisterComponent() {
                         label="CPF"
                     />
                 </Grid2>
-
             </Grid2>
-
 
             <TextField
                 label="Email"
@@ -135,6 +137,7 @@ export function FormRegisterComponent() {
                 helperText={errors.email?.message}
                 {...register('email')}
             />
+
 
             <TextField
                 label="Senha"
@@ -170,7 +173,8 @@ export function FormRegisterComponent() {
                 {...register('password')}
             />
 
-            < Box
+
+            <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -186,8 +190,7 @@ export function FormRegisterComponent() {
                 >
                     {isLoading ? <CircularProgress color="success" size={24} /> : 'Registrar'}
                 </Button>
-            </Box >
-
-        </Box >
-    )
+            </Box>
+        </Box>
+    );
 }

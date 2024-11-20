@@ -5,13 +5,12 @@ import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Visibility, VisibilityOff, Key } from '@mui/icons-material';
-import { Box, Button, CircularProgress, Divider, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, Divider, IconButton, InputAdornment, TextField, useMediaQuery } from "@mui/material";
 
 const schemaLogin = z.object({
     email: z.string().email("Email inválido"),
     password: z.string().min(4, "Minimo 4 caracteres")
 });
-
 
 export function FormLoginComponent() {
     const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +18,8 @@ export function FormLoginComponent() {
 
     const { loginUser } = useAuth();
     const navigate = useNavigate();
+
+    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     const {
         register,
@@ -38,12 +39,18 @@ export function FormLoginComponent() {
 
     return (
         <Box
-            component='form'
+            component="form"
             onSubmit={handleSubmit(handleLogin)}
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1rem'
+                gap: '1rem',
+                maxWidth: isMobile ? '90%' : '400px',
+                margin: isMobile ? '2rem auto' : '0 auto',
+                padding: isMobile ? '1.5rem' : '0',
+                boxShadow: isMobile ? '0px 2px 8px rgba(0,0,0,0.1)' : 'none',
+                borderRadius: isMobile ? '1rem' : 'none',
+                backgroundColor: isMobile ? '#fff' : 'transparent',
             }}
         >
             <TextField
@@ -51,11 +58,12 @@ export function FormLoginComponent() {
                 sx={{
                     '& .MuiInputLabel-root': {
                         color: 'gray',
+                        fontSize: isMobile ? '0.9rem' : '1rem',
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: 'green'
+                        color: 'green',
                     },
-                    borderRadius: 2
+                    borderRadius: 2,
                 }}
                 slotProps={{
                     input: {
@@ -71,17 +79,19 @@ export function FormLoginComponent() {
                 helperText={errors.email?.message}
                 {...register('email')}
             />
+
             <TextField
                 label="Senha"
                 type={isShowPassword ? 'text' : 'password'}
                 sx={{
                     '& .MuiInputLabel-root': {
                         color: 'gray',
+                        fontSize: isMobile ? '0.9rem' : '1rem',
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: 'green'
+                        color: 'green',
                     },
-                    borderRadius: 2
+                    borderRadius: 2,
                 }}
                 slotProps={{
                     input: {
@@ -92,8 +102,8 @@ export function FormLoginComponent() {
                             </InputAdornment>
                         ),
                         endAdornment: (
-                            <InputAdornment position="end" onClick={() => setIsShowPassword(!isShowPassword)}>
-                                <IconButton>
+                            <InputAdornment position="end">
+                                <IconButton onClick={() => setIsShowPassword(!isShowPassword)}>
                                     {isShowPassword ? <Visibility /> : <VisibilityOff />}
                                 </IconButton>
                             </InputAdornment>
@@ -105,24 +115,29 @@ export function FormLoginComponent() {
                 {...register('password')}
             />
 
-            < Box
+            <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '.5rem',
-                    marginTop: '1rem'
+                    marginTop: '1rem',
                 }}
             >
                 <Button
                     type="submit"
                     variant="contained"
                     disabled={isLoading}
-                    sx={{ backgroundColor: 'green', boxShadow: 'none', height: '3.5rem', borderRadius: '.7rem' }}
+                    sx={{
+                        backgroundColor: 'green',
+                        boxShadow: 'none',
+                        height: isMobile ? '3rem' : '3.5rem',
+                        borderRadius: '.7rem',
+                        fontSize: isMobile ? '0.9rem' : '1rem',
+                    }}
                 >
                     {isLoading ? <CircularProgress color="success" size={24} /> : 'Entrar'}
                 </Button>
-            </Box >
-
-        </Box >
-    )
+            </Box>
+        </Box>
+    );
 }

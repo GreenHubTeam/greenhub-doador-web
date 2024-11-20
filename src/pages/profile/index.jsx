@@ -119,7 +119,7 @@ export default function ProfileComponent() {
                             alignItems: 'center',
                             gap: '1rem',
                             marginTop: '-3.5rem',
-                            paddingLeft: '3rem',
+                            paddingLeft: { xs: '1rem', sm: '3rem' },
                             zIndex: 1,
                         }}
                     >
@@ -149,11 +149,9 @@ export default function ProfileComponent() {
                     </Box>
 
                     <Grid2 mt={4} container spacing={3}>
-                        <Grid2 size={4}>
+                        <Grid2 size={{xs:12, md:4}}>
                             <Stack spacing={2}>
-                                <Card
-                                    variant="outlined"
-                                >
+                                <Card variant="outlined">
                                     <CardContent>
                                         <Typography variant="subtitle1" color="success">
                                             Sobre
@@ -183,10 +181,9 @@ export default function ProfileComponent() {
 
                                 <DonateHistoryComponent userId={user?.id} />
                             </Stack>
-
                         </Grid2>
 
-                        <Grid2 size={8}>
+                        <Grid2 size={{xs:12, md:8}}>
                             <Card variant="outlined">
                                 <CardContent>
                                     <Typography variant="subtitle1" color="success" mb={3}>
@@ -227,9 +224,6 @@ export default function ProfileComponent() {
                                                     <PhotoCamera />
                                                 </IconButton>
                                             }
-                                            sx={{
-
-                                            }}
                                         >
                                             <Avatar
                                                 alt="User Avatar"
@@ -256,7 +250,6 @@ export default function ProfileComponent() {
                                             fullWidth
                                             label="Nome"
                                             sx={{
-                                                flex: 1,
                                                 backgroundColor: '#e7e7e7',
                                                 borderRadius: '8px',
                                                 '& .MuiOutlinedInput-root': {
@@ -295,26 +288,8 @@ export default function ProfileComponent() {
                                             fullWidth
                                             label="Documento"
                                             sx={{
-                                                flex: 1,
                                                 backgroundColor: '#e7e7e7',
                                                 borderRadius: '8px',
-                                                '& .MuiOutlinedInput-root': {
-                                                    '& fieldset': {
-                                                        borderColor: 'transparent'
-                                                    },
-                                                    '&:hover fieldset': {
-                                                        borderColor: 'transparent',
-                                                    },
-                                                    '&.Mui-focused fieldset': {
-                                                        borderColor: 'transparent',
-                                                    },
-                                                },
-                                                '& .MuiInputLabel-root': {
-                                                    color: 'black',
-                                                },
-                                                '& .MuiInputLabel-root.Mui-focused': {
-                                                    color: 'green',
-                                                },
                                             }}
                                             slotProps={{
                                                 input: {
@@ -334,26 +309,8 @@ export default function ProfileComponent() {
                                             fullWidth
                                             label="Email"
                                             sx={{
-                                                flex: 1,
                                                 backgroundColor: '#e7e7e7',
                                                 borderRadius: '8px',
-                                                '& .MuiOutlinedInput-root': {
-                                                    '& fieldset': {
-                                                        borderColor: 'transparent'
-                                                    },
-                                                    '&:hover fieldset': {
-                                                        borderColor: 'transparent',
-                                                    },
-                                                    '&.Mui-focused fieldset': {
-                                                        borderColor: 'transparent',
-                                                    },
-                                                },
-                                                '& .MuiInputLabel-root': {
-                                                    color: 'black',
-                                                },
-                                                '& .MuiInputLabel-root.Mui-focused': {
-                                                    color: 'green',
-                                                },
                                             }}
                                             slotProps={{
                                                 input: {
@@ -386,7 +343,7 @@ export default function ProfileComponent() {
                             </Card>
                         </Grid2>
                     </Grid2>
-                </Box >
+                </Box>
             </Grid2>
         </Grid2>
     )

@@ -7,10 +7,10 @@ import { FormLoginComponent } from "../../components/FormLogin";
 import { Box, Button, Card, CardContent, Container, Divider, Grid2, Typography, useMediaQuery } from "@mui/material";
 
 export function Login() {
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     return (
-        <Grid2 sx={{ height: '100dvh', }} container>
+        <Grid2 sx={{ height: '100dvh' }} container>
             <Grid2
                 size={{ md: 8, xs: 12 }}
                 sx={{
@@ -18,60 +18,95 @@ export function Login() {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    overflowY: 'auto'
+                    overflowY: 'auto',
+                    padding: isMobile ? '1rem' : '2rem',
+                    backgroundColor: isMobile ? '#f9f9f9' : 'white',
                 }}
             >
                 <Container maxWidth={isMobile ? 'lg' : 'sm'}>
-                    <Card variant="outlined">
-                        <CardContent sx={{ padding: ' 2rem' }}>
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            borderRadius: '1rem',
+                            boxShadow: isMobile ? '0px 4px 10px rgba(0,0,0,0.1)' : 'none',
+                            overflow: 'hidden',
+                        }}
+                    >
+                        <CardContent sx={{ padding: isMobile ? '1.5rem' : '2rem' }}>
                             <Button
                                 variant="text"
                                 startIcon={<ArrowBack />}
-                                sx={{ color: 'green', mb: '.5rem' }}
+                                sx={{
+                                    color: 'green',
+                                    marginBottom: '1rem',
+                                    textTransform: 'none',
+                                    fontWeight: 'bold',
+                                    fontSize: isMobile ? '0.9rem' : '1rem',
+                                }}
                                 component={Link}
-                                to='/'
+                                to="/"
                             >
                                 Home
                             </Button>
 
-                            <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                flexWrap: 'wrap-reverse',
-                            }}>
-                                <Box>
-                                    <Typography variant="h5" color="green">
-                                        Olá, seja Bem vindo
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    marginBottom: '1.5rem',
+                                    flexDirection: isMobile ? 'column-reverse' : 'row',
+                                }}
+                            >
+                                <Box sx={{ textAlign: isMobile ? 'center' : 'left', marginBottom: isMobile ? '1rem' : 0 }}>
+                                    <Typography
+                                        variant="h5"
+                                        sx={{
+                                            color: 'green',
+                                            fontWeight: 'bold',
+                                            fontSize: isMobile ? '1.2rem' : '1.5rem',
+                                        }}
+                                    >
+                                        Olá, seja Bem-vindo
                                     </Typography>
-
-                                    <Typography variant="h6">
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            fontSize: isMobile ? '0.9rem' : '1rem',
+                                            color: '#555',
+                                        }}
+                                    >
                                         Faça login na sua conta
                                     </Typography>
                                 </Box>
-
                                 <LogoComponent />
                             </Box>
 
-                            <Divider sx={{ my: '2rem' }} />
+                            <Divider sx={{ marginBottom: '2rem' }} />
 
                             <FormLoginComponent />
 
-                            <Divider sx={{ my: '1rem' }} />
+                            <Divider sx={{ marginY: '2rem' }} />
 
                             <Box
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    gap: '.3rem'
+                                    gap: '0.3rem',
+                                    fontSize: '0.9rem',
+                                    color: '#555',
                                 }}
                             >
                                 Não tem conta?
                                 <Box
                                     component={Link}
-                                    to='/signup'
-                                    sx={{ color: 'green' }}
+                                    to="/signup"
+                                    sx={{
+                                        color: 'green',
+                                        fontWeight: 'bold',
+                                        textDecoration: 'none',
+                                    }}
                                 >
                                     Registre-se
                                 </Box>
@@ -90,7 +125,7 @@ export function Login() {
                         backgroundImage: "url('https://www.tvjequie.com.br/uploads/images/2024/10/amazonia-e-foco-de-conferencia-internacional-em-novembro.png')",
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
-                        backgroundPosition: 'center'
+                        backgroundPosition: 'center',
                     }}
                 >
                     <Box
@@ -98,7 +133,7 @@ export function Login() {
                             display: 'flex',
                             alignItems: 'end',
                             height: '100%',
-                            padding: '4rem'
+                            padding: '4rem',
                         }}
                     >
                         <SlideText />
@@ -106,5 +141,5 @@ export function Login() {
                 </Grid2>
             )}
         </Grid2>
-    )
+    );
 }

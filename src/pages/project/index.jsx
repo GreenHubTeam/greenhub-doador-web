@@ -1,46 +1,43 @@
 import { useAuth } from "../../hooks/useAuth";
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Grid2, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { AppBarComponent } from "../../components/AppBar";
 import { FooterComponent } from "../../components/Footer";
 import { ListProjects } from "../../components/ListProjects";
 
 export function Projects() {
-
     const { user } = useAuth();
+    const theme = useTheme();
+    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     return (
-        <Box flexGrow={1} >
-            {!user && <AppBarComponent color='black' />}
+        <Box flexGrow={1}>
+            {!user && <AppBarComponent color="black" />}
             <Box
                 sx={{
-                    padding: '0 7rem',
+                    padding: isMobile ? "0 1rem" : "0 7rem", 
                 }}
             >
-                <Box
-                    sx={{
-                        my: '2rem'
-                    }}
-                >
+                <Box sx={{ my: "2rem" }}>
                     <Box
                         sx={{
-                            width: '100%',
-                            borderRadius: '2rem',
-                            height: '200px',
-                            backgroundImage: 'url("/fotoonça.png")',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            padding: '0 4rem',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            color: 'white',
-                            justifyContent: 'center'
+                            width: "100%",
+                            borderRadius: "2rem",
+                            height: isMobile ? "150px" : "200px", 
+                            backgroundImage: "url('/fotoonça.png')",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            padding: isMobile ? "0 1rem" : "0 4rem", 
+                            display: "flex",
+                            flexDirection: "column",
+                            color: "white",
+                            justifyContent: "center",
                         }}
                     >
-                        <Typography variant="h3" fontWeight={700}>
+                        <Typography variant={isMobile ? "h4" : "h3"} fontWeight={700}>
                             {user ? `Bem vindo ${(user.name).split(" ")[0]}!` : "Gostaria de fazer a diferença?"}
                         </Typography>
 
-                        <Typography variant="h5" sx={{ color: 'darkgray' }} >
+                        <Typography variant={isMobile ? "h6" : "h5"} sx={{ color: "darkgray" }}>
                             Apoie um projeto!
                         </Typography>
                     </Box>
@@ -49,10 +46,8 @@ export function Projects() {
                 <Grid2 container>
                     <ListProjects viewProfile={!!user} />
                 </Grid2>
-
             </Box>
             {!user && <FooterComponent />}
-
         </Box>
-    )
+    );
 }
