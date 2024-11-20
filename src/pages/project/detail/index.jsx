@@ -12,7 +12,7 @@ import { AppBarComponent } from "../../../components/AppBar";
 import { DonationButton } from "../../../components/DonateButton";
 import { ArrowBack, Group, VolunteerActivism } from "@mui/icons-material";
 import { CreateFeedbackComponent } from "../../../components/CreateFeedback";
-import { Avatar, Box, Button, Card, CardContent, CardMedia, Divider, Grid2, Skeleton, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, CardMedia, Divider, Grid2, Skeleton, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { ButtonLikeComponent } from "../../../components/ButtonLike";
 
 dayjs.locale('pt-br');
@@ -26,18 +26,20 @@ export default function ProjectDetail() {
     const [projectData, setProjectData] = useState(null);
     const [srcImage, setSrcImage] = useState("/bannerProject.png");
 
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     useEffect(() => {
         const fetchProjectData = async () => {
             setLoading(true);
             try {
                 const projectDetail = await api.get(`/project/one/${projectId}`, { params: { userId: user?.id } });
-
                 setProjectData(projectDetail.data);
-                setSrcImage(`${env.api_url}/${projectDetail.data.imagePath}`)
+                setSrcImage(`${env.api_url}/${projectDetail.data.imagePath}`);
             } catch {
                 toast.error("Error ao carregar os dados do projeto");
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         };
 
@@ -50,24 +52,17 @@ export default function ProjectDetail() {
 
     return (
         <Box flexGrow={1}>
-
             {!user && <AppBarComponent color="black" />}
 
-            <Box sx={{ padding: '0 7rem', mt: '2rem', minHeight: '100dvh' }}>
+            <Box sx={{ padding: isMobile ? '0 1rem' : '0 7rem', mt: '2rem', minHeight: '100dvh' }}>
                 {
                     isLoading ? (
                         <Grid2 container spacing={4}>
                             <Grid2 size={8}>
-                                <Skeleton
-                                    animation='wave'
-                                    height={350}
-                                />
+                                <Skeleton animation='wave' height={350} />
                             </Grid2>
                             <Grid2 size={4}>
-                                <Skeleton
-                                    animation='wave'
-                                    height={350}
-                                />
+                                <Skeleton animation='wave' height={350} />
                             </Grid2>
                         </Grid2>
                     ) : projectData ? (
@@ -88,55 +83,35 @@ export default function ProjectDetail() {
                                 </Button>
                             </Grid2>
 
-                            <Grid2 size={8}>
+                            <Grid2 size={{xs: 12, md: 8}}>
                                 <Card variant="outlined">
                                     <CardMedia
                                         component='img'
                                         alt='Project Image'
-                                        sx={{ height: 200 }}
+                                        sx={{ height: isMobile ? 150 : 200 }}
                                         image={srcImage}
                                         title='Project Image'
-                                        onError={() => {
-                                            setSrcImage('/bannerProject.png')
-                                        }}
+                                        onError={() => setSrcImage('/bannerProject.png')}
                                     />
                                     <CardContent>
-                                        <Stack direction='row' justifyContent='space-between'>
-                                            <Typography
-                                                sx={{
-                                                    fontWeight: 700,
-                                                    fontSize: '1.5rem'
-                                                }}
-                                            >
+                                        <Stack direction={isMobile ? 'column' : 'row'} justifyContent='space-between'>
+                                            <Typography sx={{ fontWeight: 700, fontSize: isMobile ? '1.2rem' : '1.5rem' }}>
                                                 {projectData.name}
                                             </Typography>
                                             {user && <ButtonLikeComponent projectId={projectId} />}
                                         </Stack>
 
-
-                                        <Typography
-                                            sx={{
-                                                color: '#a5a5a5',
-                                                fontWeight: 500,
-                                                mt: '.6rem',
-                                                mb: '.5rem'
-                                            }}
-                                        >
+                                        <Typography sx={{ color: '#a5a5a5', fontWeight: 500, mt: '.6rem', mb: '.5rem' }}>
                                             Criado {dayjs(projectData.createdAt).fromNow()}
                                         </Typography>
 
                                         <Divider />
 
-                                        <Typography
-                                            sx={{
-                                                my: '2rem'
-                                            }}
-                                        >
+                                        <Typography sx={{ my: '2rem' }}>
                                             {projectData.description}
                                         </Typography>
 
                                         <Divider />
-
 
                                         <Stack direction='column' spacing={2} mt={4}>
                                             <CreateFeedbackComponent projectId={projectId} />
@@ -145,34 +120,19 @@ export default function ProjectDetail() {
                                 </Card>
                             </Grid2>
 
-                            <Grid2 size={4}>
-                                <Card
-                                    variant="outlined"
-                                >
+                            <Grid2 size={{xs: 12, md: 4}}>
+                                <Card variant="outlined">
                                     <CardContent>
                                         <DescDetail
                                             label="Publicado Por"
                                             data={
-                                                <Box
-                                                    sx={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        height: '100%',
-                                                        gap: '1rem'
-                                                    }}
-                                                >
+                                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                                     <Avatar
                                                         src={`${env.api_url}/${projectData.Ong.imagePath}`}
                                                         alt={projectData.Ong.name}
                                                     />
-
-                                                    <Typography>
-                                                        {projectData.Ong.name}
-                                                    </Typography>
-
-                                                    <Typography>
-                                                        {dayjs(projectData.createdAt).format('DD/MM/YYYY')}
-                                                    </Typography>
+                                                    <Typography>{projectData.Ong.name}</Typography>
+                                                    <Typography>{dayjs(projectData.createdAt).format('DD/MM/YYYY')}</Typography>
                                                 </Box>
                                             }
                                         />
@@ -195,12 +155,10 @@ export default function ProjectDetail() {
                             </Grid2>
                         </Grid2>
                     ) : (
-                        <Typography>
-                            Nenhum conteudo encontrado
-                        </Typography>
+                        <Typography>Nenhum conteúdo encontrado</Typography>
                     )
                 }
             </Box>
         </Box>
-    )
+    );
 }

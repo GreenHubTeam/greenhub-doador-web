@@ -7,53 +7,65 @@ import { FormRegisterComponent } from "../../components/FormRegister";
 import { Box, Button, Card, CardContent, Container, Divider, Grid2, Typography, useMediaQuery } from "@mui/material";
 
 export function Register() {
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     return (
-        <Grid2 sx={{ height: '100dvh', }} container>
+        <Grid2 
+            container 
+            sx={{ 
+                height: '100dvh',
+                flexDirection: isMobile ? 'column' : 'row',
+            }}
+        >
             <Grid2
-                size={{ md: 8, xs: 12 }}
+                size={{xs:12, md:8}}
                 sx={{
-                    height: '100%',
+                    height: isMobile ? 'auto' : '100%',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    overflowY: 'auto'
+                    overflowY: isMobile ? 'scroll' : 'auto',
+                    padding: isMobile ? '1rem' : '0',
                 }}
             >
-                <Container maxWidth={isMobile ? 'lg' : 'sm'}>
-                    <Card variant="outlined">
-                        <CardContent sx={{ padding: ' 2rem' }}>
+                <Container maxWidth={isMobile ? 'xs' : 'sm'}>
+                    <Card variant="outlined" sx={{ boxShadow: isMobile ? 'none' : '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                        <CardContent sx={{ padding: isMobile ? '1.5rem' : '2rem' }}>
                             <Button
                                 variant="text"
                                 startIcon={<ArrowBack />}
-                                sx={{ color: 'green', mb: '.5rem' }}
+                                sx={{ 
+                                    color: 'green', 
+                                    mb: isMobile ? '1rem' : '.5rem',
+                                    fontSize: isMobile ? '0.9rem' : '1rem',
+                                }}
                                 component={Link}
                                 to='/'
                             >
                                 Home
                             </Button>
 
-                            <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                flexWrap: 'wrap-reverse',
-                            }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: isMobile ? 'center' : 'space-between',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap-reverse',
+                                    textAlign: isMobile ? 'center' : 'left',
+                                }}
+                            >
                                 <Box>
                                     <Typography variant="h5" color="green">
                                         Registre-se
                                     </Typography>
-
-                                    <Typography variant="h6">
+                                    <Typography variant="body1">
                                         Informe suas credenciais
                                     </Typography>
                                 </Box>
-
-                                <LogoComponent />
+                                {!isMobile && <LogoComponent />} 
                             </Box>
 
-                            <Divider sx={{ my: '2rem' }} />
+                            <Divider sx={{ my: isMobile ? '1.5rem' : '2rem' }} />
 
                             <FormRegisterComponent />
 
@@ -64,7 +76,8 @@ export function Register() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    gap: '.3rem'
+                                    gap: '.3rem',
+                                    fontSize: isMobile ? '0.9rem' : '1rem',
                                 }}
                             >
                                 Já possui conta?
@@ -90,7 +103,7 @@ export function Register() {
                         backgroundImage: "url('https://www.tvjequie.com.br/uploads/images/2024/10/amazonia-e-foco-de-conferencia-internacional-em-novembro.png')",
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
-                        backgroundPosition: 'center'
+                        backgroundPosition: 'center',
                     }}
                 >
                     <Box
@@ -98,7 +111,7 @@ export function Register() {
                             display: 'flex',
                             alignItems: 'end',
                             height: '100%',
-                            padding: '4rem'
+                            padding: '4rem',
                         }}
                     >
                         <SlideText />
@@ -106,5 +119,5 @@ export function Register() {
                 </Grid2>
             )}
         </Grid2>
-    )
+    );
 }

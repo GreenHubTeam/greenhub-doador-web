@@ -34,7 +34,6 @@ function a11yProps(index) {
     };
 }
 
-
 export default function OngProfileComponent() {
     const { id: ongId } = useParams();
     const [ongData, setOngData] = useState(null);
@@ -64,10 +63,9 @@ export default function OngProfileComponent() {
 
                 setOngData(response.data);
 
-                setProfileImage(`${env.api_url}/${response.data.imagePath}`)
-
+                setProfileImage(`${env.api_url}/${response.data.imagePath}`);
             } catch {
-                toast.error("Error ao buscar dados da ONG, tente Novamente Mais tarde")
+                toast.error("Error ao buscar dados da ONG, tente Novamente Mais tarde");
             } finally {
                 setIsLoading(false);
             }
@@ -92,7 +90,7 @@ export default function OngProfileComponent() {
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        mb: '2rem'
+                        mb: '2rem',
                     }}
                 >
                     <Box
@@ -114,13 +112,14 @@ export default function OngProfileComponent() {
                             }}
                         />
                     </Box>
+
                     <Box
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '1rem',
                             marginTop: '-3.5rem',
-                            paddingLeft: '3rem',
+                            paddingLeft: { xs: '1rem', sm: '3rem' }, 
                             zIndex: 1,
                         }}
                     >
@@ -138,7 +137,7 @@ export default function OngProfileComponent() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '.4rem',
-                                alignItems: 'start'
+                                alignItems: 'start',
                             }}
                         >
                             <Typography
@@ -160,16 +159,13 @@ export default function OngProfileComponent() {
 
                     {!isLoading && ongData && (
                         <Grid2 mt={4} container spacing={3}>
-                            <Grid2 size={4}>
-                                <Card
-                                    variant="outlined"
-                                >
+                            <Grid2 size={{xs:12, md:4}}>
+                                <Card variant="outlined">
                                     <CardContent>
                                         <Typography variant="h6" mb={2}>
                                             Sobre
                                         </Typography>
                                         <Stack spacing={2}>
-
                                             <Typography
                                                 display='flex'
                                                 alignItems='center'
@@ -238,7 +234,7 @@ export default function OngProfileComponent() {
                                 </Card>
                             </Grid2>
 
-                            <Grid2 size={8}>
+                            <Grid2 size={{xs:12, md:8}}>
                                 <Card variant="outlined">
                                     <Box sx={{ width: '100%' }}>
                                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -261,5 +257,5 @@ export default function OngProfileComponent() {
                 </Box >
             </Grid2>
         </Grid2>
-    )
+    );
 }

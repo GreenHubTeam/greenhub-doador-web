@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
 import { AppBarComponent } from "../AppBar";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import theme from "../../theme/theme";
 
 export function HeroSection() {
     const router = useNavigate();
     const { t } = useTranslation();
+    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     return (
         <Box
@@ -41,15 +43,19 @@ export function HeroSection() {
                 }}
             >
                 <AppBarComponent color='white' />
+
                 <Box
                     sx={{
                         flex: 1,
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
-                        paddingLeft: '7rem',
+                        alignItems: isMobile ? 'center' : 'flex-start',
+                        paddingLeft: isMobile ? '1rem' : '7rem',
+                        paddingRight: isMobile ? '1rem' : 0,
+                        textAlign: isMobile ? 'center' : 'left',
                         color: 'white',
-                        maxWidth: '800px'
+                        maxWidth: isMobile ? '100%' : '800px'
                     }}
                 >
                     <motion.div
@@ -57,33 +63,38 @@ export function HeroSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
                     >
-                        <Box>
-                            <Typography
-                                variant="h3"
-                                fontWeight={700}
-                                mb={2}
-                            >
-                                {t('home.title')}
-                            </Typography>
-                            <Typography
-                                variant="h5"
-                                fontWeight={500}
-                                sx={{ color: '#dcdcdc' }}
-                            >
-                                {t('home.description')}
-                            </Typography>
+                        <Typography
+                            variant={isMobile ? "h4" : "h3"}
+                            fontWeight={700}
+                            mb={2}
+                        >
+                            {t('home.title')}
+                        </Typography>
 
-                            <Button
-                                variant="contained"
-                                sx={{ backgroundColor: 'green', mt: '2rem', height: '3rem' }}
-                                onClick={() => router('/project')}
-                            >
-                                {t('home.buttonLabel')}
-                            </Button>
-                        </Box>
+                        <Typography
+                            variant={isMobile ? "body1" : "h5"}
+                            fontWeight={500}
+                            sx={{ color: '#dcdcdc' }}
+                            mb={isMobile ? '1rem' : 0}
+                        >
+                            {t('home.description')}
+                        </Typography>
+
+                        <Button
+                            variant="contained"
+                            sx={{
+                                backgroundColor: 'green',
+                                mt: '2rem',
+                                height: '3rem',
+                                width: isMobile ? '100%' : 'auto'
+                            }}
+                            onClick={() => router('/project')}
+                        >
+                            {t('home.buttonLabel')}
+                        </Button>
                     </motion.div>
                 </Box>
             </Box>
         </Box>
-    )
+    );
 }

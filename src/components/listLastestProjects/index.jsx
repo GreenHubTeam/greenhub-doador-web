@@ -4,13 +4,15 @@ import { api } from "../../libs/axios";
 import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { Card, CardActionArea, CardContent, CardMedia, Grid2, Skeleton, Stack, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia, Grid2, Skeleton, Stack, Typography, useMediaQuery } from "@mui/material";
 
 export function ListLatestProjects() {
     const { user } = useAuth();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [lastestData, setLatestData] = useState(null);
+
+    const isMobile = useMediaQuery('(max-width: 768px)'); 
 
     useEffect(() => {
         const fetchlatestViewProjects = async () => {
@@ -41,7 +43,7 @@ export function ListLatestProjects() {
                 onError={() => {
                     setSrcImage('/bannerProject.png')
                 }}
-                sx={{ height: 50 }}
+                sx={{ height: isMobile ? 150 : 50, }}
             />
         )
     }

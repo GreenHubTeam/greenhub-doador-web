@@ -3,10 +3,13 @@ import { FooterComponent } from "../../components/Footer";
 import { HeroSection } from "../../components/HeroSection";
 import { SlideProject } from "../../components/SlideProject";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { Box, Grid2, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { Box, Grid2, List, ListItem, ListItemIcon, ListItemText, Typography, useMediaQuery } from "@mui/material";
+import theme from '../../theme/theme'; 
 
 export function Home() {
     const { t } = useTranslation();
+    const isMobile = useMediaQuery('(max-width: 768px)'); 
+
     return (
         <Box flexGrow={1}>
             <HeroSection />
@@ -18,10 +21,7 @@ export function Home() {
                 }}
             >
                 <Grid2 container spacing={5}>
-                    <Grid2 size={{
-                        xs: 12,
-                        md: 6
-                    }}>
+                    <Grid2 size={{ xs: 12, md: 6 }}>
                         <Typography variant="h6" color="textSecondary">
                             {t('about.title')}
                         </Typography>
@@ -33,10 +33,7 @@ export function Home() {
                             {t('about.description')}
                         </Typography>
                     </Grid2>
-                    <Grid2 size={{
-                        xs: 12,
-                        md: 6
-                    }}>
+                    <Grid2 size={{ xs: 12, md: 6 }}>
                         <Box mt={5}>
                             <List dense>
                                 <ListItem>
@@ -82,17 +79,20 @@ export function Home() {
             >
                 <Grid2 container spacing={5}>
                     <Grid2 size={12}>
-                        <Typography variant="h4" fontWeight={700} my={2} textAlign='center'>
+                        <Typography variant="h4" fontWeight={700} my={2} textAlign="center">
                             Apoie Projetos em Destaque
                         </Typography>
                     </Grid2>
-                    <Grid2 size={{ xs: 12, }}>
-                        <SlideProject />
-                    </Grid2>
+
+                    {isMobile && (
+                        <Grid2 size={{ xs: 12 }}>
+                            <SlideProject />
+                        </Grid2>
+                    )}
                 </Grid2>
             </Box>
 
             <FooterComponent />
-        </Box >
-    )
+        </Box>
+    );
 }
