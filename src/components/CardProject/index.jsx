@@ -26,9 +26,13 @@ export function CardProject(data) {
         return profileImages[randomIndex];
     };
 
+    console.log("DATA", data);
+
     // eslint-disable-next-line react/prop-types
     const CustomAvatar = ({ imagePath, name }) => {
         const [avatarSrc, setAvatarSrc] = useState(`${env.api_url}/${imagePath}`);
+
+        console.log("IMAGEM", `${env.api_url}/${imagePath}`);
 
         return (
             <Avatar

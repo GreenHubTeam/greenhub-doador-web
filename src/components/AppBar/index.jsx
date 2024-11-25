@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SelectChangeLanguage from '../SelectChangeLanguage';
 import { Article, ExitToApp, Home, Menu, Person } from '@mui/icons-material';
 import { AppBar, Button, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Stack, Toolbar, Tooltip, useMediaQuery } from '@mui/material';
 import { LogoComponent } from '../Logo';
@@ -86,7 +85,6 @@ export function AppBarComponent({ color = 'white' }) {
                         spacing={2}
                         justifyContent="end"
                     >
-                        <SelectChangeLanguage />
                         <Button
                             color={path.pathname === '/' ? "success" : "inherit"}
                             onClick={() => navigate('/')}
